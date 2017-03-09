@@ -1,0 +1,112 @@
+{% paginate search.results by 24 %}  	
+
+<div class="section-title desktop-12 mobile-3">
+  <h1>{{ 'general.search.title' | t }}</h1>
+</div>
+
+<div id="page" class="desktop-12 tablet-6 mobile-3">
+
+  <div id="search-bar">
+    <form action="/search" method="get">
+      {% if search.performed %}
+      {% if search.results_count == 0 %}
+      <p>{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
+      {% else %}
+      <p>{{ 'general.search.results_for_html' | t: terms: search.terms }}</p>
+      {% endif %}
+      {% endif %}
+      <input type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}"/>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+{% if search.performed %}
+
+<div class="desktop-12 tablet-6 mobile-3" id="four-per-row">
+  <div id="product-loop">
+    {% for item in search.results %} 
+
+
+    <div class="product {% if settings.products_per_row  == '3' %}desktop-4{% cycle ' first', '', ' last' %}{% elsif settings.products_per_row == '4' %}desktop-3{% cycle ' first', '', '', ' last' %}{% endif %} mobile-half" id="prod-{{ product.id }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+      <div class="collection-image ci">
+
+        {% if item.object_type == 'article' %}
+        <!--'item' is an article All article object properties can be accessed. -->
+        {% if item.image %}
+        <a href="{{ item.url }}" title="{{ item.title | escape }}">
+          <img src="{{ item.image | img_url: 'grande' }}" alt="{{ item.title }}">
+        </a>
+        {% else %}
+        <div class="search-content prod-image">
+          {{ item.content | strip_html | trancate: 200 }}
+        </div>
+        {% endif %}
+        {% elsif item.object_type == 'page' %}
+        <!--'item' is a page. All page object properties can be accessed. -->
+
+        {% if item.content contains "img" %}
+        {% assign feat_image = item.content | split: 'src="' %}
+        {% assign feat_image = feat_image[1] | split: '"' | first | replace: '//cdn', 'http://cdn' | replace: 'http:http://', 'http://' | remove: 'https:'  %}
+        <a href="{{ item.url }}" title="{{ item.title | escape }}">
+          <img src="{{ feat_image }}" alt="{{ item.title }}">
+        </a>
+        {% else %}
+        <div class="search-content prod-image">
+          {{ item.content | strip_html | trancate: 200 }}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <!-- 'item' is a product. All product object properties can be accessed.-->
+        {% if item.available %}
+        {% for col in item.collections %}
+        {% if col.handle == 'new' %}
+        <div class="new icn">{{ 'products.general.new' | t }}</div>
+        {% endif %}
+        {% endfor %}        
+        {% if item.price < item.compare_at_price %}
+        <div class="sale-item icn">{{ 'products.general.sale' | t }}</div>
+        {% endif %}
+        {% else %}
+        <div class="so icn">{{ 'products.general.sold' | t }}</div>
+        {% endif %}  
+        <a href="{{ item.url }}" title="{{ item.title | escape }}">
+          {{ item.featured_image | img_url: 'grande' | img_tag: item.featured_image.alt }}
+        </a>
+        {% endif %}         
+
+      </div>
+
+      <div class="product-details">  
+        <a href="{{ item.url }}"> 
+          {% if item.object_type == 'product' %} {% if settings.vendor %}<h4>{{ item.vendor }}</h4>{% endif %} {% endif %}
+          <h3>{{ item.title }}</h3>
+        </a>        
+        {% if item.object_type == 'product' %}
+        <div class="price">
+          {% if item.price < item.compare_at_price %}
+          <div class="onsale">{{ item.price | money }}</div>
+          <div class="was">{{ item.compare_at_price | money }}</div>
+          {% else %}
+          <div class="prod-price">{% if item.price_varies %} {{ 'products.general.from' | t }} {{ item.price_min | money }} - {{ item.price_max | money }} {% else %}{{ item.price | money }}{% endif %}</div>
+          {% endif %}	
+        </div>
+        {% endif %}        
+      </div>          
+
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% include 'pagination' %}
+
+{% endif %}
+
+{% endpaginate %}
+

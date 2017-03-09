@@ -1,0 +1,130 @@
+{% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+{% capture linkurl %}{{ link.url }}{% endcapture %} 
+{% capture child_list_handle %}{{ link.title | handleize }}{% endcapture %}
+{% if link.title == settings.megadropdown_link %}
+<li class="dropdown">{{ link.title | link_to: link.url }}  
+  <ul class="megamenu">
+    <div class="mega-container">
+      {% if settings.nav_promo_image %}
+      <span class="desktop-3 tablet-hide mm-image">
+        <a href="{{ settings.nav_promo_link }}">
+          <img src="{{ 'nav_promo.jpg' | asset_url }}">
+        </a>
+      </span>
+      {% endif %}
+      <span class="{% if settings.nav_promo_image %}desktop-9{% else %}desktop-12{% endif %} tablet-6">
+        {% assign mega = 0 %}
+        {% if settings.mega_1_show %}{% assign mega = mega | plus: 1 %}{% endif %}
+        {% if settings.mega_2_show %}{% assign mega = mega | plus: 1 %}{% endif %}
+        {% if settings.mega_3_show %}{% assign mega = mega | plus: 1 %}{% endif %}
+        {% if settings.mega_4_show %}{% assign mega = mega | plus: 1 %}{% endif %}
+
+        {% if mega > 0 %}    
+        <!-- Start Megamenu Inner Links -->
+        {% if settings.mega_1_show %}            
+        <li class="desktop-{{ 12 | divided_by: mega }}"><h4>{{ linklists[settings.mega_1_links].title }}</h4>
+          <ul class="mega-stack">
+            {% for link in linklists[settings.mega_1_links].links %}
+            <li>{{ link.title | link_to: link.url }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% endif %}
+        {% if settings.mega_2_show %}            
+        <li class="desktop-{{ 12 | divided_by: mega }}"><h4>{{ linklists[settings.mega_2_links].title }}</h4>
+          <ul class="mega-stack">
+            {% for link in linklists[settings.mega_2_links].links %}
+            <li>{{ link.title | link_to: link.url }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% endif %}
+        {% if settings.mega_3_show %}            
+        <li class="desktop-{{ 12 | divided_by: mega }}"><h4>{{ linklists[settings.mega_3_links].title }}</h4>
+          <ul class="mega-stack">
+            {% for link in linklists[settings.mega_3_links].links%}
+            <li>{{ link.title | link_to: link.url }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% endif %}
+        {% if settings.mega_4_show %}            
+        <li class="desktop-{{ 12 | divided_by: mega }}"><h4>{{ linklists[settings.mega_4_links].title }}</h4>
+          <ul class="mega-stack">
+            {% for link in linklists[settings.mega_4_links].links %}
+            <li>{{ link.title | link_to: link.url }}</li>
+            {% endfor %}
+          </ul>
+        </li> 
+        {% endif %}    
+        {% endif %}  
+      </span>
+    </div>
+  </ul>
+</li>
+{% elsif linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+<li class="dropdown"><a href="{{ link.url }}" class="dlinks">{{ link.title }}</a>  
+  {% if linkurl contains 'collections/' %}
+  {% assign collection = link.object %}
+  <ul class="megamenu">
+    <div class="mega-container">
+      <!-- Start Megamenu Inner Links -->
+      <li class="desktop-2 tablet-1">
+        <h4>{{ link.title }}</h4>
+
+        <ul class="mega-stack">
+          {% for l in linklists[child_list_handle].links %}
+          {% capture child_list_handle %}{{ l.title | handleize }}{% endcapture %}
+          <li><a href="{{ l.url }}">{{ l.title }}</a></li>    
+          {% endfor %}
+        </ul>
+      </li> 
+      
+      {% for product in collection.products limit: 5 %}
+      <li class="desktop-2 product-index">
+        <div class="ci">
+          <a href="{{ product.url | within: collection }}" title="{{ product.title | escape }}">
+            <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ image.alt }}" />
+          </a>
+        </div>
+        <div class="product-details">  
+          <p><a href="{{ product.url | widthin: collection }}">{{ product.title }}</a></p>
+          <div class="price">
+            <a href="{{ product.url | widthin: collection }}">
+              {% if product.price < product.compare_at_price %}
+              <div class="onsale">{{ product.price | money }}</div>
+              <div class="was">{{ product.compare_at_price | money }}</div>
+              {% else %}
+              <div class="prod-price">{% if product.price_varies %} {{ 'products.general.from' | t }} {{ product.price_min | money }} - {{ product.price_max | money }} {% else %}{{ product.price | money }}{% endif %}</div>
+              {% endif %}	
+            </a>
+          </div>          
+        </div>
+      </li>
+      {% endfor %}        
+    </div>
+  </ul>
+  {% else %}
+  <ul class="submenu">
+    {% for l in linklists[child_list_handle].links %}
+    {% capture child_list_handle %}{{ l.title | handleize }}{% endcapture %}
+    {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}      
+    <li class="nest"><a href="{{ l.url }}">{{ l.title }}</a>                 
+      <ul class="nested">
+        {% for l in linklists[child_list_handle].links %}
+        <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% else %}
+    <li><a href="{{ l.url }}">{{ l.title }}</a></li>    
+    {% endif %}
+
+    {% endfor %}
+  </ul>
+  {% endif %}
+</li>
+
+{% else %}
+<li>{{ link.title | link_to: link.url }}</li>
+{% endif %}

@@ -1,0 +1,53 @@
+{% capture number_of_related_products_to_fetch %}{{ number_of_related_products_to_show | plus: 1 }}{% endcapture %}
+
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+{% assign found_a_collection = false %}
+{% for c in product.collections %}
+{% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+{% assign found_a_collection = true %}
+{% assign collection = c %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+<div class="desktop-12 mobile-3" id="related">
+
+  <h4>{{ 'products.general.related' | t }}</h4>
+
+
+  <div class="related-carousel">
+    {% assign current_product_found = false %}
+    {% for prod in collection.products limit: 50 %}
+    {% if prod.title == product.title %}
+    {% assign current_product_found = true %}
+    {% else %}
+    {% unless current_product_found == false and forloop.last %}
+    <div class="lazyOwl" data-alpha="{{ prod.title }}" data-price="{{ prod.price }}">     
+      <a href="{{ prod.url | within: collection }}" title="{{ prod.title | escape }}">
+        <img src="{{ prod.featured_image | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+      </a>
+
+      <div class="product-details">  
+
+          <a href="{{ prod.url | within: collection }}"> 
+            {% if settings.vendor %}<h4>{{ prod.vendor }}</h4>{% endif %}
+            <h3>{{ prod.title }}</h3>
+          </a>        
+          <div class="price">
+            {% if product.price < prod.compare_at_price %}
+            <div class="onsale">{{ prod.price | money }}</div>
+            <div class="was">{{ prod.compare_at_price | money }}</div>
+            {% else %}
+            <div class="prod-price">{% if prod.price_varies %} {{ 'products.general.from' | t }} {{ prod.price_min | money }} - {{ prod.price_max | money }} {% else %}{{ prod.price | money }}{% endif %}</div>
+            {% endif %}	
+          </div>
+
+      </div> 
+    </div>
+    {% endunless %}
+    {% endif %}
+    {% endfor %}
+  </div>  
+
+</div>

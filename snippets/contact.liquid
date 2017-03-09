@@ -1,0 +1,93 @@
+{% form 'contact' %}
+
+
+
+{% if form.errors %}
+<div class="notice error">
+  <p>{{ 'general.forms.post_error' | t }}</p>
+  <ul class="disc">
+    {% for field in form.errors %}
+    {% if field == 'form' %}
+    <li>
+      {{ form.errors.messages[field] }}
+    </li>
+    {% else %}
+    <li>
+      <strong>{{ field | replace: 'body', 'Message' }}</strong> {{ form.errors.messages[field] }}
+    </li>
+    {% endif %}
+
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+
+{% if form.posted_successfully? %}
+<div class="successForm feedback">
+  <p>{{ 'contact.form.post_success' | t }}</p>
+</div>
+{% endif %}
+
+<div id="contactFormWrapper">
+  <h3>How Can We Help?</h3>
+  <div class="contact-inn">
+  <div class="mobile-3">
+    <p>
+      <label>Your Name</label>
+      <input type="text" id="contactFormName" name="contact[name]" required/>
+    </p>
+  </div>
+  <div class="mobile-3">
+    <p>
+      <label>Your E-mail Address</label>
+      <input type="email" id="contactFormEmail" name="contact[email]" required/>
+    </p>
+</div>
+  <!--   <div class="desktop-4 mobile-3">
+    <p>
+      <label>{{ 'contact.form.phone' | t }}</label>
+      <input type="text" id="contactFormTelephone" name="contact[phone]"/>
+    </p> 
+  </div> -->
+  <div class="mobile-3">
+    <p>
+      <label>Your Message</label>
+      <textarea rows="15" cols="90" id="contactFormMessage" name="contact[body]"></textarea>
+    </p>
+  </div>
+  <div class="mobile-3">
+    <p>
+      <label>File Attachment</label>
+      <input type="file" id="attachment" name="contact[file]"/>
+    </p>
+</div>
+    <div class="g-recaptcha" data-sitekey="6LdfLAkUAAAAAND_z2CarB3_jdqQPKJ61iiiBloK"></div>
+    <p>
+      <input type="submit" id="contactFormSubmit" class="submit-form" value="{{ 'contact.form.send' | t }}" />
+    </p> 
+  </div>
+</div>
+
+<div class="clear"></div>
+
+
+{% if form.posted_successfully? %}
+<div class="successForm feedback">
+  <p>{{ 'contact.form.post_success' | t }}</p>
+</div>
+{% endif %}
+
+
+
+{% endform %}      
+
+<div class="clear"></div>
+
+{% if settings.show-map %}
+<div id="gmap">
+  <div class="Flexible-container">
+    {{ settings.map }}
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,64 @@
+<section class="homepage-section" class="no-fouc">
+  {% if settings.display-wide %}
+  {% else %}
+  <div class="row">
+    <div class="desktop-12 tablet-6 mobile-3">
+      {% endif %}
+
+      {% if settings.homepage-display == 'video' %}
+      <div class="videoWrapper">
+        {{ settings.video-embed }}
+      </div>
+
+      {% elsif settings.homepage-display == 'slideshow' %}
+      <div class="flexslider">
+        <ul class="slides">
+
+
+          {% for i in (1..5) %}
+          {% assign slide_show = 'slide-' | append: i | append: '-check' %}
+
+          {% if settings[slide_show] %}
+          {% assign index = 'slide' | append: i %}
+          {% assign slide_link_url = 'slide' | append: i | append: '_url' %}
+          {% assign slide_img_url = 'image' | append: i | append: '.jpg' %}
+          {% assign slide_img_alt = 'slide' | append: i | append: '_alt' %}
+          {% assign slide_title = 'slide-' | append: i | append: '-title' %}
+          {% assign slide_caption = 'slide-' | append: i | append: '-caption' %}
+          {% assign slide_button = 'slide-' | append: i | append: '-button' %}
+          {% assign slide_button_text = 'slide-' | append: i | append: '-button-text' %}        
+
+          <li>
+            <a href="{{ settings[slide_link_url] }}">
+              <img src="{{ slide_img_url | asset_url }}" alt="{{ settings[slide_img_alt] }}" />
+            </a>
+            <div class="flex-caption {{ index }}">
+              <div class="caption-inners">
+
+                {% if settings[slide_title] != blank %}                        
+                <h2 class="slide-title">{{ settings[slide_title] }}</h2>
+                {% endif %}
+                {% if settings[slide_caption] != blank %}            
+                <p class="caption">{{ settings[slide_caption] }}</p>
+                {% endif %}
+                {% if settings[slide_button] %}
+                <div class="cta">
+                  <a href="https://mcb-com.myshopify.com/pages/get-started">{{ settings[slide_button_text] }}</a>
+                </div>
+                {% endif %} 
+              </div>
+            </div>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %} 
+
+      {% if settings.display-wide %}
+      {% else %}
+    </div>
+  </div>
+  {% endif %}    
+  <div class="clear"></div>  
+</section>

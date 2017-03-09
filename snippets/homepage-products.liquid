@@ -1,0 +1,64 @@
+{% assign collection = collections[settings.homepage-collection] %}
+<section id="homepage-products" class="no-fouc">    
+  <div class="section-title row">
+    <h2>{{ 'layout.homepage.featured_products_title' | t }}</h2>
+  </div>
+  <div class="row"> 
+    
+    {% if settings.homepage-collection == blank %}
+    <div class="theme-instructions">
+      <div class="onboard desktop-12 tablet-6 mobile-3">
+        <h3>Home page - featured products</h3>
+        You are seeing this message as you have enabled the Featured products section of your Home page options
+        but have yet to choose a menu from the section titled: <strong>Home page - featured products</strong> and choose collection from the choose a collection dropdown.
+        <br /><br />
+        To configure this section go to the <a href="/admin/themes/100454982/editor">theme Customizer</a> and open the section named: <strong>Home page - featured products</strong>.<br />
+        To rename the title of this section go to the <a href="/admin/themes/100454982/language">Edit Language</a> section and choose the Layout tab
+        <br /><br />
+        Need more help? take a look at our <a target="_blank" href="http://support.undergroundmedia.co.uk/customer/portal/articles/2386311-home-page---featured-products">tutorial</a>.
+      </div>
+      <div class="theme-content">
+        <div class="collection-carousel desktop-12 tablet-6 mobile-3">
+          {% for i in (1..6) %}
+          <div class="lazyOwl">
+            <div class="prod-image">
+              <img src="//cdn.shopify.com/s/images/themes/product-{{ forloop.index }}.png" alt="{{ image.alt }}" />
+            </div>
+            <div class="product-details"> 
+                <h3>Sample product title</h3>
+                <div class="price">
+                  <div class="prod-price">9.99</div>
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}    
+
+    {% if settings.homepage-product-layout == 'grid' %}
+
+    <article id="product-loop">
+      {% for product in collection.products limit: settings.homepage-product-limit %}
+      <div class="product desktop-3 tablet-half mobile-half{% cycle ' first', '', '', ' last' %}" id="prod-{{ product.id }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+        {% include 'product-listing' %}
+      </div>
+      {% endfor %}
+    </article> 
+
+    {% elsif settings.homepage-product-layout == 'carousel' %}
+
+    <div class="collection-carousel">
+      {% for product in collection.products %}
+      <div class="lazyOwl product" data-alpha="{{ product.title }}" data-price="{{ product.price }}">     
+        {% include 'product-listing' %}
+      </div>
+      {% endfor %} 
+    </div>
+
+    {% endif %}
+
+  </div>
+</section>
+<div class="clear"></div>

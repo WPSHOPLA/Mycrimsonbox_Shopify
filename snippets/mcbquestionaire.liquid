@@ -1,0 +1,15 @@
+<script>
+$(document).ready(function(){
+    $(document).on("click", "#mcbquestionairebutton", function(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "https://www.shopifyappexperts.com/shopifymcbquestionaire/addquestionairecode.php",
+            data: $("#mcbquestionaireform").serializeArray(),
+            success: function(response) {
+                
+            }
+        });
+    });
+});
+</script>

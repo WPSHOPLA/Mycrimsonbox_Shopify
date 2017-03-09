@@ -1,0 +1,132 @@
+<a class="show mobile-3" href="#"><img src="{{ 'jquery.fs.shifter-icon.png' | asset_url }}"></a>
+
+<div class="desktop-2 tablet-6 mobile-3" id="aside">
+  <div id="sidebar">
+
+    {% if collection.image %}
+    {{ collection.image.src | collection_img_url: 'compact' | img_tag: collection_title }}
+    {% endif %} 
+
+    {% if template contains 'collection' %}
+    <label>{{ 'collections.sorting.title' | t }}</label> 
+    <div>
+      <select id="sort-by" class="styled-select">
+        <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
+        <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+        <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+        <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
+        <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
+        <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
+        <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
+        <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+      </select>
+    </div>
+    {% endif %}
+
+    
+    {% if linklists[collection.handle].links.size > 0 %}
+    <ul>
+      <label>{{ collection.title }}</label>
+      {% for link in linklists[collection.handle].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if settings.collection_links_1 %}
+    <ul>
+      <label>{{ linklists[settings.collection_side_1].title }}</label>
+      {% for link in linklists[settings.collection_side_1].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    {% if settings.collection_links_2 %}
+    <ul>
+      <label>{{ linklists[settings.collection_side_2].title }}</label>
+      {% for link in linklists[settings.collection_side_2].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+
+
+    {% endif %}
+
+    {% if settings.collection_links_3 %}
+    <ul>
+      <label>{{ linklists[settings.collection_side_3].title }}</label>
+      {% for link in linklists[settings.collection_side_3].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if settings.collection_links_4 %}
+    <ul>
+      <label>{{ linklists[settings.collection_side_4].title }}</label>
+      {% for link in linklists[settings.collection_side_4].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if collection %}
+    {% if settings.shop_by_designer %}
+    {% if collection.handle == "all" %}
+    <ul>
+      <label>{{ 'collections.general.shop_by_designer' | t }}</label>
+      {% for product_vendor in shop.vendors %}
+      <li>{{ product_vendor | link_to_vendor  }}</li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+
+    <ul>
+      <label>{{ 'collections.general.shop_by_designer' | t }}</label>
+      {% for product_vendor in collection.all_vendors %}
+      <li class="{{ product_vendor | handelize }}">{{ product_vendor | link_to_vendor }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+
+  </div>
+
+  <script>
+    Shopify.queryParams = {};
+    if (location.search.length) {
+      for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+        aKeyValue = aCouples[i].split('=');
+        if (aKeyValue.length > 1) {
+          Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+        }
+      }
+    }
+    jQuery('#sort-by')
+    .val('{{ collection.sort_by | default: collection.default_sort_by  }}')
+         .bind('change', function() {
+      Shopify.queryParams.sort_by = jQuery(this).val();
+      location.search = jQuery.param(Shopify.queryParams);
+    });
+  </script>   
+
+  {% if settings.sticky-sidebar %}
+  <script>
+
+    if($(window).width() > 980){
+
+      $('#sidebar').stickySidebar({
+
+        sidebarTopMargin: 100,
+        footerThreshold: 100
+
+      });  
+    };
+  </script>
+  {% endif %}
+
+</div>

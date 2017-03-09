@@ -1,0 +1,38 @@
+{% assign number = settings.products_per_page %}
+{% paginate collection.products by number %}
+
+<div class="section-title desktop-12 mobile-3">
+  <h1>{% if collection.handle == 'all' %}{{ 'collections.general.all_products' | t }}{% else %}{{ collection.title }}{% endif %}</h1>
+</div>
+
+{% if settings.show_collection_sidebar %}
+{% include 'collection-sidebar' %}
+{% endif %}
+
+<div class="{% if settings.show_collection_sidebar %}desktop-10{% else %}desktop-12{% endif %} tablet-6 mobile-3" id="bside">
+
+  {% if collection.description != blank %}
+  <div id="collection-description"> 
+    <div class="rte">{{ collection.description | remove: "[banner]" }}</div>  
+  </div>  
+  {% endif %}
+
+  <div class="clear"></div>  
+
+  <div id="product-loop">
+    {% for product in collection.products %}
+    <div class="product {% if settings.products_per_row  == '3' %}desktop-4{% cycle ' first', '', ' last' %}{% elsif settings.products_per_row == '4' %}desktop-3{% cycle ' first', '', '', ' last' %}{% endif %} tablet-half mobile-half" id="prod-{{ product.id }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+    {% include 'product-listing' %}
+    </div>
+    {% endfor %} 
+  </div>
+</div>
+
+
+<div class="clear"></div>
+
+
+{% include 'pagination' %}
+
+{% endpaginate %}
+

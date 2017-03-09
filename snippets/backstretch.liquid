@@ -1,0 +1,28 @@
+<section id="home">
+  <div id="home-slideshow">
+    {% if settings.homepage-content %}
+    <article id="home-intro">     
+      <div class="row">
+        <div class="desktop-12 tablet-6 mobile-3">
+          {{ pages[settings.main-page].content }}
+        </div>
+      </div>
+    </article>
+    {% endif %}
+  </div>
+</section>
+
+  
+
+
+<script>
+  $("{% if settings.home_section_1 == blank and settings.home_section_2 == blank and settings.home_section_3 == blank and settings.home_section_4 == blank and settings.home_section_5 == blank and settings.home_section_6 == blank %}#homepage{% else %}#home{% endif %}").backstretch([
+    {% if settings.slide-1-check %}"{{ 'image1.jpg' | asset_url }}",{% endif %}
+    {% if settings.slide-2-check %}"{{ 'image2.jpg' | asset_url }}",{% endif %}
+    {% if settings.slide-3-check %}"{{ 'image3.jpg' | asset_url }}",{% endif %}
+    {% if settings.slide-4-check %}"{{ 'image4.jpg' | asset_url }}",{% endif %}
+    {% if settings.slide-5-check %}"{{ 'image5.jpg' | asset_url }}"{% endif %} 
+    ], {
+    fade: 750
+    });
+</script>

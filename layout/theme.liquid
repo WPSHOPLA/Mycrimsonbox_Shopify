@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+
+  <meta charset="utf-8" />
+
+  {% include 'google-fonts' %}
+  {% include 'social-media-meta-tags' %}
+
+  <!-- Basic Page Needs
+================================================== -->
+
+  <title>
+    {% if template == 'index' %}{% if page_title contains 'Welcome' %}{{ shop.name }} &ndash; Welcome{% else %}{{ page_title }}{% endif %}{% elsif template == '404' %}Page Not Found{% elsif page_title contains shop.name %}{{ page_title }}{% else %}{{ page_title }} &ndash; {{ shop.name }}{% endif %}
+  </title>
+  {% if page_description %}
+  <meta name="description" content="{{ page_description }}" />
+  {% endif %}
+  <link rel="canonical" href="{{ canonical_url }}" />
+
+
+  <!-- CSS
+================================================== -->
+
+  {{ 'stylesheet.css' | asset_url | stylesheet_tag }}
+  {{ 'custom Copy.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.fs.selecter.css' | asset_url | stylesheet_tag }}
+  {{ 'font-awesome.css' | asset_url | stylesheet_tag }}
+  {{ 'queries.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.fancybox.css' | asset_url | stylesheet_tag }}
+  {{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
+  {{ 'owl.theme.css' | asset_url | stylesheet_tag }}
+  {{ 'animate.css' | asset_url | stylesheet_tag }} 
+  {{ 'owl.transitions.css' | asset_url | stylesheet_tag }}
+
+  <!--[if IE 8 ]>{{ 'ie8.css' | asset_url | stylesheet_tag }}<![endif]-->
+
+  <!--[if IE 7]>
+{{ 'font-awesome-ie7.css' | asset_url | stylesheet_tag }}
+<![endif]-->
+
+  <!-- JS
+================================================== -->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  {{ 'theme.js' | asset_url | script_tag }} 
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}  
+
+
+  {% if template == 'index' %}
+  {% if settings.slideshow == 'backstretch' %}
+  {{ 'jquery.backstretch.min.js' | asset_url | script_tag }}
+  {% endif %}
+  {% endif %}
+
+  {% if template contains 'product' %}
+  {{ 'jquery.bxslider.min.js' | asset_url | script_tag }}
+  {% endif %}
+
+  {{ 'instafeed.js' | asset_url | script_tag }}
+  {{ 'owl.carousel.js' | asset_url | script_tag }}
+
+
+  <!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicons
+================================================== -->
+
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  {% if template contains 'customers' %}
+  {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+  {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+  {% endif %}
+
+  {{ content_for_header }}
+
+  <link rel="next" href="/next"/>
+  <link rel="prev" href="/prev"/>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      //$("#owl-example").owlCarousel();
+      //$("#owl-example1").owlCarousel();
+      //$("#owl-example3").owlCarousel();
+
+      var ht = $(window).height();
+      $(".slides li img").attr("height", ht);
+      $(window).resize(function() {
+        var ht = $(window).height();
+        $(".slides li img").attr("height", ht);
+      });
+
+      $(".slides li img").each(function() {
+        $(this).css("background-image", "url("+$(this).attr("src")+")");	
+        $(this).attr("src"," ");
+      });
+
+      $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        animateOut: 'fadeOut',
+        responsiveClass:true,
+        responsive:{
+          0:{
+            items:1,
+            nav:true
+          },
+          600:{
+            items:3,
+            nav:false
+          },
+          1000:{
+            items:5,
+            nav:true,
+            loop:false
+          }
+        }
+      });
+
+      $('.wider').click(function(){
+        $('.wider-bg').toggle();
+        //Expand or collapse this panel
+        $(".shifter-navigation").css('opacity' , '1');
+        $(".shifter-navigation").slideToggle('200');
+      });
+
+      $(".discount-code").hide();
+      $('#other_discount_code_a').click(function(){
+        $(".discount-code").show();
+      });
+
+      // Custom recharge apps checkout
+      $(".rechargeapps-checkout").click(function(){
+        showLoading();
+        $.ajax({
+          type: 'POST',
+          url: '/cart/add.js',
+          data: {id: "31674259332", quantity: 1},
+          dataType: 'json',
+          success: function(response) {
+            $.ajax({
+              url: '/cart.js',
+              type: 'GET',
+              data: 1,
+              dataType: 'json',
+              success: function(response) {
+                if(response.token != "" && response.token != null) {
+                  var cart_token = response.token;
+                  window.location.href = "https://checkout.rechargeapps.com/r/checkout?myshopify_domain=mcb-com.myshopify.com&cart_token="+cart_token;
+                }
+              }
+            });
+          }
+        });
+      });
+      // Custom recharge apps checkout
+      
+      // Cart Page custom checkout
+      $(".cartpage-checkout").click(function(){
+        showLoading();
+        $.ajax({
+              url: '/cart.js',
+              type: 'GET',
+              data: 1,
+              dataType: 'json',
+              success: function(response) {
+                if(response.token != "" && response.token != null) {
+                  var cart_token = response.token;
+                  window.location.href = "https://checkout.rechargeapps.com/r/checkout?myshopify_domain=mcb-com.myshopify.com&cart_token="+cart_token;
+                }
+              }
+            });
+      });
+      // Cart Page custom checkout
+    });
+
+	function showLoading() {
+        $(".loading").show();
+    }
+
+    function hideLoading() {
+        $(".loading").hide();
+    }
+  </script>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+
+
+<body class="gridlock shifter {{ template }}">
+  {% include 'timber-cart' %}
+
+  <div class="is-moved-by-drawer" id="PageContainer">  
+    <div class="page-wrap">
+
+
+      <header class="scrollheader">
+        <div class="bannertop{% if settings.full-width-header %} gridlock-fluid{% endif %}">
+          <div class="row">
+            {% if settings.enable_banner %}
+            <div class="desktop-6 tablet-3 mobile-3" id="banner-message">
+              {{ settings.banner_message }}
+            </div>
+            {% endif %}
+
+                 
+
+            <ul id="cart" class="desktop-6 tablet-3 mobile-hide right">                  
+<!--               <li class="seeks"><a id="inline" href="#search_popup" class="open_popup"><i class="icon-search"></i></a>
+                {% if settings.show_multiple_currencies %}{% include 'currencies-switcher' %}{% endif %}</li>
+              {% if shop.customer_accounts_enabled %}
+              <li class="cust">
+                {% if customer  %}
+                <a href="/account">{{ 'customer.account.title' | t }}</a>
+                {% else %}
+                <a href="/account/login">{{ 'customer.account.title' | t }}</a>
+                {% endif %}
+              </li>
+              {% endif %} -->
+              <li>
+                <a href="/cart" {% if settings.ajax_cart_method == 'drawer' %}class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false"{% endif %}>
+                  <span class="cart-words">{{ 'cart.general.title' | t }}</span>
+                  &nbsp;<i class="icon-shopping-cart"></i> 
+<!--                   <span class="CartCount">{{ cart.item_count }}</span>
+                  &nbsp;<span class="CartCost">{{ cart.total_price | money }}</span> -->
+                </a>     
+            </ul> 
+            
+
+            <ul class="sf-menu topbmenu sf-js-enabled" id="menu-top-menu">
+
+
+              {% if shop.customer_accounts_enabled %}
+
+              {% if customer  %}
+              <li class="menu-log-in" style="float: left;">
+                <a href="https://mcb-com.myshopify.com/pages/membership-levels">My Account</a>&nbsp;&nbsp;
+              </li>
+              <li class="menu-log-in" style="float: left;">
+                <a href="/account/logout">Logout</a>
+              </li>
+              {% else %}
+              <li class="menu-log-in">
+                <a href="https://mcb-com.myshopify.com/pages/log-in">
+                  <i class="simplemodal-login"></i>
+                  <span class="login-link">
+                    <span>Log In</span></span>
+                </a>
+              </li>
+              {% endif %}
+              {% endif %}
+
+            </ul>
+            {% comment %}{% include 'mobile-cart' %}{% endcomment %}
+          </div>
+        </div> 
+        <div id="navigation"{% if settings.full-width-header %} class="gridlock-fluid"{% endif %}>
+          <div class="row">
+            <div class="nav-container desktop-12 tablet-6 mobile-3">
+              <div id="logo" class="mobile-3">       
+                {% if settings.use_logo_image %}
+                <a href="/"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" style="border: 0;"/></a>
+                {% else %}
+                <a href="/">{{ shop.name }}</a>
+                {% endif %}     
+              </div> 
+              <li class="wider"><span class="shifter-handle">Menu</span></li>
+              <nav>
+                <ul id="main-nav" role="navigation"> 
+                  {% for link in linklists.main-menu.links %}
+                  {% include 'navigation' %}
+                  {% endfor %}
+                </ul>        
+              </nav>
+            </div>
+            {% include 'mobile-navigation' %}
+          </div>  
+        </div>
+      </header>
+      <div id="phantom"></div>  
+
+
+
+      {% if template contains 'collection' %}
+      {% if collection.description contains '[banner]' %}
+      {% capture banner %}{{ collection.handle }}.jpg{% endcapture %}
+      {% capture alt %}{{ collection.title }}{% endcapture %}
+      <div class="collection-banner">
+        <img src="{{ banner | file_url }}" alt="{{ collection.title }}">
+      </div>
+      {% endif %}
+      {% endif %}      
+      {% if template != 'index' %}
+      <div id="content" class="row">	
+        {% if settings.breadcrumb %}
+        {% include 'breadcrumb' %}	
+        {% endif %}	
+        {{ content_for_layout }}  
+      </div>
+      {% else %}
+      {{ content_for_layout }}
+      {% endif %}
+
+    </div>
+
+
+    <footer>
+      <div id="footer-wrapper">	
+        <div id="footer" class="row">
+          {% assign grid = 0 %}
+          {% assign grid = grid | plus: 1 %}
+          {% if settings.footer-2-links != '' %}{% assign grid = grid | plus: 1 %}{% endif %}
+          {% if settings.footer-3-links != '' %}{% assign grid = grid | plus: 1 %}{% endif %} 
+          {% assign grid = grid | plus: 1 %}        
+          {% if grid > 0 %}
+          <!--           <div class="desktop-{{ 12 | divided_by: grid }} tablet-half mobile-half">
+<h4>{{ 'layout.footer.navigation' | t }}</h4>
+<ul>
+{% for link in linklists.footer.links %}
+<li>{{ link.title | link_to: link.url }}</li>
+{% endfor %}
+</ul>
+</div>
+{% if settings.footer-2-links != '' %}
+<div class="desktop-{{ 12 | divided_by: grid }} tablet-half mobile-half">
+{% if settings.footer-2-links != '' %}
+<h4>{{ linklists[settings.footer-2-links].title }}</h4>
+{% endif %}
+<ul>
+{% for link in linklists[settings.footer-2-links].links %}
+<li>{{ link.title | link_to: link.url }}</li>
+{% endfor %}
+</ul>
+</div>
+{% endif %} -->
+          {% if settings.footer-3-links != '' %}
+          <div class="desktop-{{ 12 | divided_by: grid }} tablet-half mobile-half">
+            {% if settings.footer-3-links != '' %}        
+            <h4>{{ linklists[settings.footer-3-links].title }}</h4>
+            {% endif %}
+            <ul>
+              {% for link in linklists[settings.footer-3-links].links %}
+              <li>{{ link.title | link_to: link.url }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          <!--           <div class="desktop-{{ 12 | divided_by: grid }} tablet-half mobile-3">
+<h4>{{ 'layout.footer.connect' | t }}</h4>
+<div id="footer_signup">
+<p>{{ settings.footer_signup_text }}</p>
+<form action="{{ settings.mailchimp }}" method="post" id="footer-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+<input value="" name="EMAIL" class="email" id="footer-EMAIL" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" required="" type="email">
+<input value="{{ 'general.newsletter_form.submit' | t }}" name="subscribe" id="footer-subscribe" class="button" type="submit">
+</form>
+</div> 
+</div>       -->
+          {% endif %}
+          <div class="clear"></div>
+          <!--           <ul id="footer-icons" class="desktop-12 tablet-6 mobile-3">
+{% if settings.show_facebook %}<li><a href="{{ settings.facebook_url }}" target="_blank"><i class="icon-facebook icon-2x"></i></a></li>{% endif %}
+{% if settings.show_twitter %}<li><a href="{{ settings.twittername }}" target="_blank"><i class="icon-twitter icon-2x"></i></a></li>{% endif %}
+{% if settings.show_pinterest %}<li><a href="{{ settings.pinterest_url }}" target="_blank"><i class="icon-pinterest icon-2x"></i></a></li>{% endif %}
+{% if settings.show_tumblr %}<li><a href="{{ settings.tumblr_url }}" target="_blank"><i class="icon-tumblr icon-2x"></i></a></li>{% endif %}
+{% if settings.show_youtube %}<li><a href="{{ settings.youtube_url }}" target="_blank"><i class="icon-youtube icon-2x"></i></a></li>{% endif %}
+{% if settings.show_googleplus %}<li><a href="{{ settings.googleplus_url }}" target="_blank"><i class="icon-google-plus icon-2x"></i></a></li>{% endif %}
+{% if settings.show_instagram %}<li><a href="//instagram.com/{{ settings.instagram-id }}" target="_blank"><i class="icon-instagram icon-2x"></i></a></li>{% endif %}
+{% if settings.show_rss %}<li><a href="{{ shop.url }}/blogs/news.atom" target="_blank"><i class="icon-rss icon-2x"></i></a></li>{% endif %}
+</ul>       -->
+          <div class="clear"></div>
+          <div class="foot-top">
+            <div class="footerlogo">
+              <img width="150" height="65" src="https://cdn.shopify.com/s/files/1/1498/2742/files/crimson_logo_LV_darkredblack_RGB.png?11342279047982782549">
+            </div>
+            <div class="socialicons">
+              <ul id="footer-icons" class="tablet-6 mobile-3">
+                {% if settings.show_facebook %}<li><a href="{{ settings.facebook_url }}" target="_blank"><i class="icon-facebook icon-2x"></i></a></li>{% endif %}
+                {% if settings.show_instagram %}<li><a href="//instagram.com/{{ settings.instagram-id }}" target="_blank"><i class="icon-instagram icon-2x"></i></a></li>{% endif %}
+                {% if settings.show_twitter %}<li><a href="{{ settings.twittername }}" target="_blank"><i class="icon-twitter icon-2x"></i></a></li>{% endif %}
+              </ul>
+            </div>
+
+          </div>
+          <div class="foot-bottom">
+            <div class="credit tablet-6 mobile-3 copy">
+              <p>
+                <!--                 {{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }} {{ shop.name | link_to: '/' }} • 
+<a href="//www.shopifythemes.net" target="_blank" title="Shopify theme">Shopify Theme</a> -->
+                All rights reserved. © 2016 Crimson Box Co.
+              </p>
+            </div>
+            <div class="footermenu">
+              {% if settings.footer-2-links != '' %}
+              <div class="tablet-half mobile-half">
+                {% if settings.footer-2-links != '' %}
+
+                {% endif %}
+                <ul>
+                  {% for link in linklists[settings.footer-2-links].links %}
+                  <li>{{ link.title | link_to: link.url }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div> 
+      </div>
+    </footer>
+
+    {% include 'popup' %}
+
+    <div style='display:none'>
+      <div id='search_popup' style='padding:30px;'>
+        <p class="box-title">SEARCH THIS STORE<p>
+        <!-- BEGIN #subs-container -->
+        <div id="subs-container" class="clearfix">
+          <div id="search">
+            <form action="/search" method="get">
+              <input type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}" />
+            </form>
+          </div>  
+        </div>
+      </div>
+    </div>    
+  </div>  
+
+
+
+  <a href="#" class="scrollup"><i class="icon-angle-up icon-2x"></i></a>
+
+  <!-- Begin Recently Viewed Products -->
+  <script type="text/javascript" charset="utf-8">
+    //<![CDATA[
+
+    // Including api.jquery.js conditionnally.
+    if (typeof Shopify.resizeImage === 'undefined') {
+      document.write({{ "api.jquery.js" | shopify_asset_url | script_tag | json }});
+    }
+
+    //]]>
+  </script>
+
+  {{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+  {{ 'jquery.products.min.js' | asset_url | script_tag }}
+
+  {% if template contains 'product' %}
+
+  <script type="text/javascript" charset="utf-8">
+    //<![CDATA[
+    Shopify.Products.recordRecentlyViewed();
+    //]]>
+  </script>
+  {% endif %}  
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=127142210767229";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+  {% include 'currencies' %}
+
+  {% if settings.ajax_cart_method == "drawer" %}
+  {{ 'handlebars.min.js' | asset_url | script_tag }}
+  {% include 'ajax-cart-template' %}
+  {{ 'ajax-cart.js' | asset_url | script_tag }}
+  <script>
+    jQuery(function($) {
+      ajaxCart.init({
+        formSelector: '#AddToCartForm',
+        cartContainer: '#CartContainer',
+        addToCartSelector: '#AddToCart',
+        cartCountSelector: '.CartCount',
+        cartCostSelector: '.CartCost',
+        moneyFormat: {{ shop.money_format | json }},
+        onToggleCallback: function(cart) {
+        Currency.convertAll(shopCurrency, Currency.currentCurrency);
+        jQuery('.selected-currency').text(Currency.currentCurrency);
+      }
+                    });
+    });
+    jQuery('body').on('ajaxCart.afterCartLoad', function(evt, cart) {
+      // Bind to 'ajaxCart.afterCartLoad' to run any javascript after the cart has loaded in the DOM
+      timber.RightDrawer.open();
+    });      
+  </script>
+  {% endif %}
+
+  <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=11454438"></script>
+
+  {% include 'social-login' %}            
+  {% include 'subscription-theme-footer' %}
+</body>
+</html>

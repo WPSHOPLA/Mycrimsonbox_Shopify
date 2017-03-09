@@ -1,0 +1,26 @@
+<div class="section-title desktop-12 mobile-3 login-bg">
+  <h1>{{ page.title }}</h1>
+</div>
+
+<div class="{% if settings.pagelist == '' %}desktop-12 tablet-6 mobile-3{% else %}desktop-9 tablet-4 mobile-3{% endif %}">
+  <div class="rte">{{ page.content }}{% include 'getstarted' %}</div>
+</div>
+
+{% if settings.pagelist != '' %}
+<div id="page-sidebar" class="desktop-3 tablet-2 mobile-3">
+  <h2>{{ settings.page-sidebar-title }}</h2>
+  <ul>
+    {% for link in linklists[settings.pagelist].links %}
+    <li>{{ link.title | link_to: link.url }}</li>
+    {% endfor %}
+  </ul>
+
+  {% if settings.pagelist == '' %}
+  <p>You are seeing this message as you have yet to pick a linklist in the Pages and contact form section of the theme settings</p>
+  <p>In your admin click on Themes > Customize Theme > Pages and Contact form and choose a Linklist from the dropdown in the area marked Choose a linklist for page sidebar</p> 
+  {% endif %}  
+
+</div>
+{% endif %}
+
+

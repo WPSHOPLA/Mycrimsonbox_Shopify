@@ -1,0 +1,33 @@
+<div class="section-title desktop-12 mobile-3 login-bg">
+  <h1>{{ page.title }}</h1>
+</div>
+
+<div id="page" class="desktop-6 tablet-6 mobile-3">
+  <div class="rte">{{ page.content }}</div>
+</div>
+<div class="contact">
+  <div class="contact-text">
+	<h3>&nbsp;</h3>
+<h3><span style="color: #881d1d;">Get In Touch</span></h3>
+<p>&nbsp;</p>
+<h5><strong>Email</strong>: <span style="color: #881d1d;"><a href="mailto:support@mycrimsonbox.com" style="color: #881d1d;">support@mycrimsonbox.com</a></span></h5>
+<h5><strong>Hours</strong>: Monday - Friday<strong> | &nbsp;</strong>9AM - 5pm PST</h5>
+<h5><strong>Location</strong>:&nbsp;7465 Mission Gorge Road Suite #154, San Diego, CA</h5>
+<hr>
+<p>&nbsp;</p>
+    
+    <div class="contact-socialicons">
+      <ul id="footer-icons" class="tablet-6 mobile-3">
+        {% if settings.show_facebook %}<li><a id="facebook" href="{{ settings.facebook_url }}" target="_blank"><i class="icon-facebook icon-2x"></i></a></li>{% endif %}
+        {% if settings.show_instagram %}<li><a id="instagram" href="//instagram.com/{{ settings.instagram-id }}" target="_blank"><i class="icon-instagram icon-2x"></i></a></li>{% endif %}
+        {% if settings.show_twitter %}<li><a id="twitter" href="{{ settings.twittername }}" target="_blank"><i class="icon-twitter icon-2x"></i></a></li>{% endif %}
+      </ul>
+    </div>
+</div>
+<div class="desktop-6 mobile-3 tablet-6 contactform">
+
+  {% include 'contact' %}
+
+</div>
+</div>
+

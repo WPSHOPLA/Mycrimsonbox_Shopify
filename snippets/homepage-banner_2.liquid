@@ -1,0 +1,14 @@
+<section id="homepage-pages-two" class="parallax parallax-window no-fouc" data-parallax="scroll" data-image-src="{{ 'parallax-background-2.jpg' | asset_url }}">     
+  <article class="row">
+    <div class="pages-left-content desktop-12 tablet-6 mobile-3">
+      {% if settings.pages-2-content == 'text' %}
+      <div class="parallax-text">{% if settings.pages-2-link != blank %}<a href="{{ settings.pages-2-link }}">{{ settings.pages-2-text }}</a>{% else %}{{ settings.pages-2-text }}{% endif %}</div>
+      {% elsif settings.pages-2-content == 'page-content' %}
+      {{ pages[settings.pages-2].content }}     
+      {% else %}
+      {% endif %}
+    </div>
+  </article>
+</section>
+<div class="clear"></div>
+

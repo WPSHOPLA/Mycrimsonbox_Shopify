@@ -1,0 +1,49 @@
+<section id="homepage-instagram" class="no-fouc">    
+    {% assign igimage = '{{image}}'%}
+    {% assign url = '{{link}}' %}
+    {% assign caption = '{{caption}}' %}
+  <article>
+    <div class="section-title row">
+      <h2>{{ 'layout.homepage.instagram' | t }}</h2>
+    </div> 
+    
+    {% if settings.instagram-user-id == blank %}
+    <div class="theme-instructions row">
+      <div class="onboard desktop-12 tablet-6 mobile-3">
+        <h3>Home page - instagram</h3>
+        You are seeing this message as you have enabled the Instagram section of your Home page options
+        but have yet to add your Instagram credentials to the section titled: <strong>Home page - Instagram</strong>.
+        <br /><br />
+        To configure this section go to the <a href="/admin/themes/96134342/editor">theme Customizer</a> and open the section named: <strong>Home page - Instagram</strong>.
+        <br /><br />
+        Need more help? take a look at our <a target="_blank" href="http://support.undergroundmedia.co.uk/customer/portal/articles/2386318-home-page---instagram">tutorial</a>.
+      </div>
+      <div class="theme-content" style="min-height: 100px">
+        {% for i in (1..6) %}
+        <div class="desktop-2 tablet-1 mobile-1">
+          <img src="//cdn.shopify.com/s/images/themes/product-{{ forloop.index }}.png" alt="{{ image.alt }}" />
+        </div>
+        {% endfor %}
+      </div>        
+    </div>
+    {% endif %}  
+    
+    <div class="gridlock-fluid">
+      <div class="row">
+        <div class="row">
+          <div id="instafeed"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var userFeed = new Instafeed({
+        get: 'user',
+        userId: {{ settings.instagram-user-id }},
+        accessToken: '{{ settings.instagram-access-token }}',
+        limit: {{ settings.instagram-limit }},
+        template: '<a target="_blank" href="{{url}}" rel="ig" title="{{ caption }}"><img class="instagram-image desktop-2 tablet-1 mobile-1 contained" src="{{ igimage }}" /></a>'
+      });
+      userFeed.run();        
+    </script>
+  </article>
+</section>

@@ -1,0 +1,73 @@
+<section id="homepage-collections" class="no-fouc">  
+
+  
+    {% if settings.home-collection-linklist == blank %}
+    <div class="theme-instructions row">
+      <div class="onboard desktop-12 tablet-6 mobile-3">
+        <h3>Home page - featured collections</h3>
+        You are seeing this message as you have enabled the Featured collections section of your Home page options
+        but have yet to choose a menu from the section titled: <strong>Home page - featured collections</strong>
+        <br /><br />
+        To configure this section go to the <a href="/admin/themes/100454982/editor">theme Customizer</a> and open the section named: <strong>Home page - featured collections</strong>.<br />
+        To rename the title of this section go to the <a href="/admin/themes/100454982/language">Edit Language</a> section and choose the Layout tab
+
+        <br /><br />
+        Need more help? take a look at our <a target="_blank" href="http://support.undergroundmedia.co.uk/customer/portal/articles/2384080-home-page---featured-collections">tutorial</a>.
+      </div>
+
+      <div class="theme-content">
+        {% for i in (1..4) %}
+        <div class="collection-index desktop-3 tablet-half mobile-half{% cycle ' first', '', '', ' last' %}">
+          <div class="collection-image">
+            <img src="//cdn.shopify.com/s/images/themes/product-{{ forloop.index }}.png" alt="{{ image.alt }}" />
+          </div>
+          <div class="collection-info">
+            <h3>Sample collection</h3>
+            {% if settings.collection_count %}<p>5 products</p>{% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}  
+  
+
+  {% if settings.homepage-collection-layout == 'carousel' %}  
+  {% for link in linklists[settings.home-collection-linklist].links %}
+  {% assign collection = link.object %}  
+  <div class="section-title row">
+    <h2><a href="{{ collection.url }}" title="{{ collection_title }}">{{ collection.title }}</a></h2>
+  </div> 
+  <article id="collection-loop" class="row">
+    {% include 'homepage-collections-loop' %}
+  </article> 
+  {% endfor %}
+  {% elsif settings.homepage-collection-layout == 'grid' %}
+  
+  <div class="section-title row">
+    <h2>{{ 'layout.homepage.featured_collections_title' | t }}</h2>
+  </div>   
+  <div class="clear"></div>
+  <article id="collection-loop" class="row">
+  {% for link in linklists[settings.home-collection-linklist].links %}
+  {% assign collection = link.object %}  
+    <div class="product desktop-3 tablet-half mobile-half{% cycle ' first', '', '', ' last' %}" data-alpha="{{ collection.title }}">    
+      <div class="collection-image ci">
+        <a href="{{ collection.url }}" title="{{ collection_title }}">
+          {% if collection.image %}
+          {{ collection.image.src | collection_img_url: 'grande' | img_tag: collection_title }}
+          {% else %}
+          {{ collection.products.first.featured_image | product_img_url: 'grande' | img_tag: collection_title }}
+          {% endif %}
+        </a>     
+      </div>
+      <div class="product-details">  
+        <h3><a href="{{ collection.url }}" title="{{ collection_title }}">{{ collection.title }}</a></h3>
+      </div> 
+    </div>
+    {% endfor %}
+  </article>
+  {% endif %}
+
+</section>
+<div class="clear"></div>

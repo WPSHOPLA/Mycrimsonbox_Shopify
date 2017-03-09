@@ -1,0 +1,60 @@
+<div class="section-title desktop-12 mobile-3">
+  <h1>{% if current_tags %}{{ blog.title | link_to: blog.url }} &raquo; {{ current_tags.first }}{% else %}{{ blog.title }}{% endif %}<a class="fr" target="_blank" href="{{ shop.url }}/blogs/{{ blog.handle }}.atom"><i class="icon-rss icon-2x"></i></a></h1>
+</div>
+
+{% paginate blog.articles by 50 %}
+
+
+<div id="blog-sidebar" class="desktop-2 mobile-3">
+
+  <h4>{{ 'blogs.sidebar.recent_posts' | t }}</h4>
+  <ul id="blog-recent">
+    {% for article in blog.articles %}
+    <li>{{ article.title | link_to: article.url }}</li>
+    {% endfor %}
+  </ul>
+
+  <h4>{{ 'blogs.sidebar.tags' | t }}</h4>
+  <ul id="blog-tags">
+    {% for tag in blog.tags %}
+    <li><a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a></li>
+    {% endfor %}
+  </ul>    
+
+
+  {% if settings.show-twitter-feed %}    
+  <div id="twitter-card">
+    <h4><a href="//www.twitter.com/{{ settings.twittername }}" target="_blank">@{{ settings.twittername }}</a> {{ 'blogs.sidebar.twitter_title' | t }}</h4>
+    <a class="twitter-timeline" href="//twitter.com/{{ settings.twittername }}" data-widget-id="{{ settings.twitter-widget }}" data-chrome="noborders noheader transparent" data-tweet-limit="3">Recent Tweets</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>     
+  </div>  
+  {% endif %}
+
+  {% if settings.show-facebook-like %}        
+  <div id="facebook-card">
+    <h4>{{ 'blogs.sidebar.facebook_title' | t }}</h4>
+    <div class="fb-like-box" data-href="{{ settings.facebook_url }}" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="false" data-show-border="false"></div> 
+  </div>
+  {% endif %}
+
+</div>
+
+
+
+<ul id="blog-articles" class="desktop-10 mobile-3">
+  {% for article in blog.articles  %}
+	{% include 'article-loop' %}
+  {% endfor %}
+</ul> 
+
+<div class="clear"></div>
+
+
+{% include 'pagination' %}
+
+
+{% endpaginate %}
+
+
+
+

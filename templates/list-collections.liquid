@@ -1,0 +1,45 @@
+
+<div class="section-title desktop-12 mobile-3">
+  <h1>{{ 'collections.general.all_collections' | t }}</h1>
+</div>
+
+{% if settings.all-collections != '' %} 
+
+{% for link in linklists[settings.all-collections].links %}
+{% assign collection = link.object %}  
+<div id="product-loop" class="{{ collection.handle }} collection-listing desktop-12 tablet-6 mobile-3">
+  <div class="section-title">
+    <h2><a href="{{ collection.url }}" title="{{ collection_title }}">{{ collection.title }}</a></h2>
+  </div>
+  <div class="clear"></div>
+  {% for product in collection.products limit: 4 %}
+  <div class="product-collection desktop-3{% cycle ' first', '', '', ' last' %} tablet-half mobile-half" id="prod-{{ product.id }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+    {% include 'product-listing' %}
+  </div>
+  {% endfor %}
+</div>
+<div class="clear"></div>
+{% endfor %}  
+
+
+	
+{% else %}
+
+{% for collection in collections %}
+<div id="product-loop" class="{{ collection.handle }} collection-listing desktop-12 tablet-6 mobile-3">
+  <div class="section-title">
+    <h2><a href="{{ collection.url }}" title="{{ collection_title }}">{{ collection.title }}</a></h2>
+  </div>
+  <div class="clear"></div>
+  {% for product in collection.products limit: 4 %}
+  <div class="product-collection desktop-3{% cycle ' first', '', '', ' last' %} tablet-half mobile-half" id="prod-{{ product.id }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+    {% include 'product-listing' %}
+  </div>
+  {% endfor %}
+</div>
+<div class="clear"></div>
+{% endfor %}
+
+{% endif %}
+
+

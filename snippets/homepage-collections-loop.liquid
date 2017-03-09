@@ -1,0 +1,61 @@
+<div class="collection-block" data-alpha="{{ collection.title }}"> 
+
+  <div class="collection-carousel">
+    {% for product in collection.products %}
+    <div class="lazyOwl product" data-alpha="{{ product.title }}" data-price="{{ product.price }}">     
+      <div class="ci">
+
+        {% if product.available %}
+        {% for col in product.collections %}
+        {% if col.handle == 'new' %}
+        <div class="new icn">{{ 'products.general.new' | t }}</div>
+        {% endif %}
+        {% endfor %}
+
+        {% if product.price < product.compare_at_price %}
+        <div class="sale-item icn">{{ 'products.general.sale' | t }}</div>
+        {% endif %}
+
+        {% else %}
+        <div class="so icn">{{ 'products.general.sold' | t }}</div>
+        {% endif %}         
+
+        <a href="{{ product.url | within: collection }}" title="{{ product.title | escape }}">
+          {% capture number_of_images %}{{ product.images | size }}{% endcapture %}
+          {% if number_of_images < '1' %}
+          <img src="{{ 'placeholder.jpg' | asset_url }}">
+          {% endif %}      
+          {% for image in product.images %}
+          {% if forloop.first %}
+          <img src="{{ image | product_img_url: 'large' }}" alt="{{ image.alt }}" />
+          {% endif %}
+          {% endfor %}
+        </a>
+      </div>
+
+      <div class="product-info"> 
+        {% if settings.quickview %}
+        <a class="fancybox.ajax product-modal" href="{{ product.url }}?view=quick">{{ 'products.general.quick_view' | t }}</a>
+        {% endif %}
+      </div>       
+
+      <div class="product-details">  
+        <a href="{{ product.url | within: collection }}"> 
+          <h3>{{ product.title }}</h3>      
+          {% if settings.vendor %}<h4>{{ product.vendor }}</h4>{% endif %}
+        </a>  
+
+        <div class="price">
+          {% if product.price < product.compare_at_price %}
+          <div class="onsale">{{ product.price | money }}</div>
+          <div class="was">{{ product.compare_at_price | money }}</div>
+          {% else %}
+          <div class="prod-price">{% if product.price_varies %} {{ 'products.general.from' | t }} {{ product.price_min | money }} - {{ product.price_max | money }} {% else %}{{ product.price | money }}{% endif %}</div>
+          {% endif %}	
+        </div>
+      </div>      
+
+    </div>
+    {% endfor %} 
+  </div>
+</div>

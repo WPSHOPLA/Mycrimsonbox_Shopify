@@ -1,0 +1,55 @@
+{% if settings.popup %}
+<script type="text/javascript">
+  if($(window).width() > 500){
+    // Fancybox Join our mailing list popup
+    $(document).ready(function(){
+
+      var check_cookie = $.cookie('mailing_list_delay_popup');
+      if(check_cookie == null){
+        $.cookie('mailing_list_delay_popup', 'expires_seven_days', { expires: 7 });
+        //fire your fancybox here
+        setTimeout(function(){
+          $.fancybox({
+            href: "#subscribe_popup"
+          });
+        }, 3000);
+      }
+    }); 
+  };
+
+</script>  
+{% endif %}
+
+<div style="display:none">
+  <div id="subscribe_popup" class="row">
+    {% if settings.email_popup_image %}
+    <div class="left fifty">
+      <img src="{{ 'popup-image.jpg' | asset_url }}">
+    </div>
+    {% endif %}
+
+    <div class="right fifty">
+      
+      <p>Subscribe</p>    
+      <!-- BEGIN #subs-container -->
+      <div id="subs-container" class="clearfix">
+        <div id="mc_embed_signup">
+          <form action="{{ settings.mailchimp }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+            <input value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" required="" type="email">
+            <input value="Send Me Deals" name="subscribe" id="mc-embedded-subscribe" class="button" type="submit">
+          </form>
+        </div>  
+      </div>
+      <div class="clear"></div>
+      {%comment %}<ul id="footer-icons">
+        {% if settings.show_facebook %}<li><a href="{{ settings.facebook_url }}" target="_blank"><i class="icon-facebook icon-2x"></i></a></li>{% endif %}
+        {% if settings.show_twitter %}<li><a href="http://www.twitter.com/{{ settings.twittername }}" target="_blank"><i class="icon-twitter icon-2x"></i></a></li>{% endif %}
+        {% if settings.show_pinterest %}<li><a href="{{ settings.pinterest_url }}" target="_blank"><i class="icon-pinterest icon-2x"></i></a></li>{% endif %}
+        {% if settings.show_tumblr %}<li><a href="{{ settings.tumblr_url }}" target="_blank"><i class="icon-tumblr icon-2x"></i></a></li>{% endif %}
+        {% if settings.show_youtube %}<li><a href="{{ settings.youtube_url }}" target="_blank"><i class="icon-youtube icon-2x"></i></a></li>{% endif %}
+        {% if settings.show_googleplus %}<li><a href="{{ settings.googleplus_url }}" target="_blank"><i class="icon-google-plus icon-2x"></i></a></li>{% endif %}
+        {% if settings.show_instagram %}<li><a href="http://instagram.com/{{ settings.instagram-id }}" target="_blank"><i class="icon-instagram icon-2x"></i></a></li>{% endif %}
+      </ul> {% endcomment %}
+    </div>
+  </div>
+</div>

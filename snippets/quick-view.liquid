@@ -1,0 +1,73 @@
+<div class="product-quick-view" style="position: relative; z-index: 0">
+  
+  <div id="product-{{ product.id }}" class="product-photos">
+
+    {% for image in product.images %}
+    {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+    {% if forloop.first %}
+    <div id="bigimage-{{ product.id }}" class="desktop-12">
+      <img id="{{ product.id }}" data-image-id="{{ image.id }}" src="{{ featured_image | img_url: 'large' }}" alt='{{ image.alt | escape }}' title="{{ product.title }}"/>
+    </div>
+    {% endif %} 
+    {% endfor %}
+
+
+    <div class="qvimages">
+      {% for image in product.images %}
+      <a href="{{ image | product_img_url: 'master' }}" data-image-id="{{ image.id }}" class="clicker-{{ product.id }}">
+        <img class="thumbnail lazyOwl" src="{{ image | product_img_url: 'medium' }}" data-image-id="{{ image.id }}" alt="{{ image.alt | escape }}" data-image-id="{{ image.id }}" />
+      </a>
+      {% endfor %}
+    </div>
+    
+    
+  </div>
+  
+  <script>
+    $(document).ready(function(){
+
+      $('#bigimage-{{ product.id }}').zoom();	
+
+
+      $('.clicker-{{ product.id }}').click(function() {
+        var newImage = $(this).attr('href');
+      $( '#bigimage-{{ product.id }} img' ).attr({ src: newImage }); 
+        return false;
+        });
+    });
+  </script>
+
+
+  <div id="product-right">
+    <div id="product-description">
+      <h2>{{ product.title }}</h2>
+       {% if settings.vendor %}<h3>{{ 'products.product.designer' | t }}: {{ product.vendor }}</h3>{% endif %}
+        <p id="product-price">
+          {% if product.available %}
+          {% if product.compare_at_price > product.price %}
+          <span class="product-price" itemprop="price">{{ product.price | money }}</span>&nbsp;<span class="was">{{ product.compare_at_price | money }}</span>
+          {% else %}
+          <span class="product-price" itemprop="price">{{ product.price | money }}</span>
+          {% endif %}
+          {% else %}
+          <span class="product-price" itemprop="price">{{ 'products.product.sold_out' | t }}</span>
+          {% endif %}
+        </p> 
+      
+      {% include 'short-form' %}  
+      
+      <div class="desc">
+        {% include 'social' with product %}
+      </div>        
+      
+      
+      <div class="rte">
+        {{ product.description | strip_html | truncatewords: 40 }}
+        <p class="view-full"><a href="{{ product.url | within: collection }}">{{ 'products.general.view_full' | t }}</a></p>
+      </div> 
+      
+    </div> 
+    
+  </div>  
+    
+</div>

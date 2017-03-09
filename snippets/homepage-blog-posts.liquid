@@ -1,0 +1,16 @@
+{% assign blog = blogs[settings.homepage-blog] %}
+<section id="homepage-blog" class="no-fouc">    
+
+  <div class="section-title row">
+    <h2>{{ 'layout.homepage.featured_blog_title' | t }}</h2>
+  </div>
+
+  <div class="row"> 
+
+    {% for article in blog.articles limit: settings.homepage-post-limit %}
+    {% include 'article-loop' %}
+    {% endfor %}
+
+  </div>
+</section>
+<div class="clear"></div>

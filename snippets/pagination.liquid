@@ -1,0 +1,20 @@
+  <div id="pagination" class="desktop-12 mobile-3"> 
+    <span class="count">{% if template != 'list-collections' %}{{ 'general.pagination.showing_items' | t }}{% endif %} {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} {{ 'general.pagination.of' | t }} {{ paginate.items }}.</span>
+    {% if paginate.previous %}
+    {{ '<' | link_to: paginate.previous.url }}
+    {% endif %}
+    {% for part in paginate.parts %}
+    {% if part.is_link %}
+    {{ part.title | link_to: part.url }}
+    {% else %}
+    {% if part.title == '&hellip;' %}
+    {{ part.title }}
+    {% else %}
+    <span class="current">{{ part.title }}</span>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% if paginate.next %}
+    {{ '>' | link_to: paginate.next.url }}
+    {% endif %}
+  </div>

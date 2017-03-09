@@ -1,0 +1,24 @@
+<div class="single-article desktop-6 tablet-3 mobile-3">
+
+  <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+  <div class="article-content">
+    {% if article.image %}
+    <a href="{{ article.url }}">
+      <img class="article-image" src="{{ article.image | img_url: 'grande' }}" alt="{{ article.title }}">
+    </a>
+    {% endif %}
+  </div>       
+
+  <div class="article-body">
+    {% assign published_at = article.published_at | date: "%b %d, %Y" %}
+    <span class="posted">{{ 'blogs.article.posted_on_date_html' | t: date: published_at }}</span>
+    {% if article.comments_count > 0 %}
+    {% assign number_of_comments = article.comments_count %}
+    <span class="comment-count">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</span>
+    {% endif %} 
+ 
+    <div class="clear"></div>
+    <div class="rte">{% if article.excerpt != blank %}{{ article.excerpt }}{% else %}{{ article.content | strip_html | truncatewords: 30 }}{% endif %}</div>
+
+  </div>
+</div>

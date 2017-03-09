@@ -1,0 +1,12 @@
+{% assign promo_url = promo | append: '_url' %}
+{% assign promo_img_url = promo | append: '.jpg' %}
+{% assign promo_title = promo | append: '_title' %}
+
+<div class="promo-inner">
+  <a href="{{ settings[promo_url] }}">
+    <img src="{{ promo_img_url | asset_url }}" alt="{{ settings[promo_title] }}">
+    <div class="caption">
+      <p>{{ settings[promo_title] }}</p>
+    </div>			
+  </a>
+</div>

@@ -1,0 +1,124 @@
+{% paginate collections by 30 %}
+
+
+
+<div class="section-title">
+  <h1 class="desktop-12 mobile-3">{{ 'collections.general.all_collections' | t }}</h1>
+</div>
+
+{% if settings.show_collection_sidebar %}
+
+<a class="show mobile-3" href="#"><img src="{{ 'jquery.fs.shifter-icon.png' | asset_url }}"></a>
+
+<div class="desktop-2 tablet-6 mobile-3" id="aside">
+  <div id="sidebar">
+    {% if settings.smartcollection %}
+    <ul>
+      {% for link in linklists[collection.handle].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} 
+
+    {% if settings.collection_links_1 %}
+    <ul>
+      <label>{{ linklists[settings.collection_side_1].title }}</label>
+      {% for link in linklists[settings.collection_side_1].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+
+    {% if settings.collection_side_1 == '' %}
+    <ul>
+      {% for collection in collections %}
+      <li>{{ collection.title | link_to: collection.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% endif %}
+
+
+    {% if settings.collection_links_2 %}
+    <ul>
+      <label>{{ linklists[settings.collection_side_2].title }}</label>
+      {% for link in linklists[settings.collection_side_2].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+
+
+    {% endif %}
+
+    {% if settings.collection_links_3 %}
+    <ul>
+      <label>{{ linklists[settings.collection_side_3].title }}</label>
+      {% for link in linklists[settings.collection_side_3].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if settings.collection_links_4 %}
+    <ul>
+      <label>{{ linklists[settings.collection_side_4].title }}</label>
+      {% for link in linklists[settings.collection_side_4].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+  </div>
+
+  <script>
+
+    if($(window).width() > 980){
+
+      $('#sidebar').stickySidebar({
+
+        sidebarTopMargin: 100,
+        footerThreshold: 100
+
+      });  
+    };
+  </script>
+
+</div>
+
+
+{% endif %}
+
+<div class="{% if settings.show_collection_sidebar %}desktop-10{% else %}desktop-12{% endif %} tablet-6 mobile-3" id="bside">
+
+
+  {% if collections.size > 0 %}
+
+
+  <div id="product-loop">
+    {% for collection in collections %}
+    <div class="product {% if settings.products_per_row  == '3' %}desktop-4{% cycle ' first', '', ' last' %}{% elsif settings.products_per_row == '4' %}desktop-3{% cycle ' first', '', '', ' last' %}{% endif %} mobile-half" data-alpha="{{ collection.title }}">    
+      <div class="collection-image ci">
+        <a href="{{ collection.url }}" title="{{ collection_title }}">
+          {% if collection.image %}
+          {{ collection.image.src | collection_img_url: 'grande' | img_tag: collection_title }}
+          {% else %}
+          {{ collection.products.first.featured_image | product_img_url: 'grande' | img_tag: collection_title }}
+          {% endif %}
+        </a>     
+      </div>
+      <div class="product-details">  
+        <h3><a href="{{ collection.url }}" title="{{ collection_title }}">{{ collection.title }}</a></h3>
+      </div> 
+    </div>
+    {% endfor %}
+  </div>
+
+
+  {% else %}
+  <p>{{ 'collections.general.no_matches' | t }}</p>
+  {% endif %}
+
+  {% include 'pagination' %}
+
+  {% endpaginate %}
+</div>

@@ -1,0 +1,16 @@
+<div class="share-icons">
+  <label>Share:</label>
+  <a title="{{ 'social.icons.facebook' | t }}" href="//www.facebook.com/sharer.php?u={{ shop.url }}{% if template contains 'blog' or template == 'article' %}{{ article.url }}{% else %}{{ product.url }}{% endif %}" class="facebook" target="_blank"><i class="icon-facebook"></i> Facebook</a>
+  <a title="{{ 'social.icons.twitter' | t }}"  href="//twitter.com/home?status={{ shop.url }}{% if template contains 'blog' or template == 'article' %}{{ article.url }}{% else %}{{ product.url }}{% endif %} via @{{ settings.twittername }}" title="Share on Twitter" target="_blank" class="twitter"><i class="icon-twitter"></i> Twitter</a>
+  
+  
+  {% if template contains 'blog' or template contains 'article' %}
+  {% if article.image %}
+  <a title="{{ 'social.icons.pinterest' | t }}" target="blank" href="//pinterest.com/pin/create/button/?url={{ shop.url }}{{ article.url }}&amp;media={{ article.image.src | img_url: 'grande' | prepend: 'http:' }}" title="Pin This Article" class="pinterest"><i class="icon-pinterest"></i> Pinterest</a>
+  {% endif %}   
+  {% endif %}
+  
+  {% if template contains 'product' %}
+  <a title="{{ 'social.icons.pinterest' | t }}" target="blank" href="//pinterest.com/pin/create/button/?url={{ shop.url }}{{ product.url }}&amp;media={{ product.images[0] | product_img_url: '1024x1024' | prepend: 'http:' }}" title="Pin This Product" class="pinterest"><i class="icon-pinterest"></i> Pinterest</a>
+  {% endif %}
+</div>

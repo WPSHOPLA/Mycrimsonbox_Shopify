@@ -1,0 +1,22 @@
+<!-- Shown on Mobile Only -->
+<ul id="cart" class="mobile-3 mobile-only">                  
+  <li class="seeks"><a id="inline" href="#search_popup" class="open_popup"><i class="icon-search"></i></a>
+    {% if settings.show_multiple_currencies %}{% include 'currencies-switcher' %}{% endif %}</li>
+  {% if shop.customer_accounts_enabled %}
+  <li class="cust">
+    {% if customer  %}
+    <a href="/account">{{ 'customer.account.title' | t }}</a>
+    {% else %}
+    <a href="/account/login">{{ 'customer.account.title' | t }}</a>
+    {% endif %}
+  </li>
+  {% endif %}
+  <li>
+    <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
+      <span class="cart-words">{{ 'cart.general.title' | t }}</span>
+      &nbsp;<i class="icon-shopping-cart"></i> 
+      <span class="CartCount">{{ cart.item_count }}</span>
+    </a> 
+  </li>       
+  <li class="wider"><span class="shifter-handle">Menu</span></li>
+</ul>  

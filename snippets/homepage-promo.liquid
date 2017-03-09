@@ -1,0 +1,28 @@
+{% assign grid = 0 %}
+{% if settings.promo1 %}{% assign grid = grid | plus: 1 %}{% endif %}
+{% if settings.promo2 %}{% assign grid = grid | plus: 1 %}{% endif %}
+{% if settings.promo3 %}{% assign grid = grid | plus: 1 %}{% endif %} 
+{% if grid > 0 %} 
+<section id="homepage-promo" class="no-fouc">   
+  <article id="promo-images" class="row">
+    {% assign promo = 'promo1' %}
+    {% if settings.promo1 %}        
+    <div class="pimg homepage-promo desktop-{{ 12 | divided_by: grid }} tablet-{{ 6 | divided_by: grid }} mobile-3">
+      {% include 'grid-images' %}
+    </div>
+    {% endif %}
+    {% assign promo = 'promo2' %}
+    {% if settings.promo2 %}  
+    <div class="pimg homepage-promo desktop-{{ 12 | divided_by: grid }} tablet-{{ 6 | divided_by: grid }} mobile-3">
+      {% include 'grid-images' %}
+    </div>
+    {% endif %}        
+    {% assign promo = 'promo3' %}
+    {% if settings.promo3 %}  
+    <div class="pimg homepage-promo desktop-{{ 12 | divided_by: grid }} tablet-{{ 6 | divided_by: grid }} mobile-3">
+      {% include 'grid-images' %}
+    </div>
+    {% endif %}
+  </article>
+  {% endif %}
+</section>

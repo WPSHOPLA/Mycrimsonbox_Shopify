@@ -1,0 +1,125 @@
+<div class="section-title desktop-12 mobile-3 login-bg">
+  <h1>{{ page.title }}</h1>
+</div>
+
+<div class="{% if settings.pagelist == '' %}desktop-12 tablet-6 mobile-3{% else %}desktop-9 tablet-4 mobile-3{% endif %}">
+  <div class="rte">{{ page.content }}</div>
+</div>
+
+{% layout settings.customer_layout %}
+<div id="customer-wrapper" class="desktop-12 mobile-3">
+
+  <!-- Left Side -->
+
+  <div id="template" class="desktop-5 mobile-3">
+
+    <!-- Guest Checkout login -->
+
+    {% if shop.checkout.guest_login %}
+    <div id="guest" class="desktop-12 mobile-3">
+      <div class="template_header">
+        {% comment %}<h2>{{ 'customer.login.guest_title' | t }}</h2>{% endcomment %}
+        {% form 'guest_login' %}
+        <input class="secondary button" type="submit" value="{{ 'customer.login.guest_continue' | t }}" />
+        {% endform %}
+      </div>
+    </div>
+    {% endif %}		
+
+    <div class="clear"></div>
+
+
+    <!-- End Guest Checkout login -->
+    <!-- Customer Login -->
+
+
+    <div id="customer" class="desktop-12 mobile-3">
+      <div class="template_header">
+        <h2>{{ 'customer.login.title' | t }}</h2>
+      </div>
+
+      {% form 'customer_login' %}
+      {{ form.errors | default_errors }}
+
+      <div id="login_email" class="clearfix large_form">
+        <label for="customer_email" class="login">Username or E-mail</label>
+        <input type="email" value="" name="customer[email]" id="customer_email" class="large" size="30"  required />
+      </div>
+
+      {% if form.password_needed %}
+
+      <div id="login_password" class="clearfix large_form">
+        <label for="customer_password" class="login">Password</label>
+        <input type="password" value="" name="customer[password]" id="customer_password" class="large password" size="16" required />
+<!--         <div id="forgot_password">
+          <a href="#" onclick="showRecoverPasswordForm();return false;">{{ 'customer.login.forgot_password' | t }}</a>
+        </div> -->
+      </div>
+
+      {% endif %}
+
+      <div class="action_bottom">
+        <input id="rememberme" type="checkbox" value="forever" name="rememberme">
+<label for="rememberme">Remember Me</label>
+        <button class="secondary button" type="submit">Log In</button>
+      </div>
+      <div class="slogintilte">Connect with:</div>
+      <div class="one-click-social-login"></div>
+
+      {% endform %}
+    </div>
+
+
+    <!-- End Customer Login -->
+    <!-- Password Recovery -->
+
+
+    <div id="recover-password" class="desktop-12 mobile-3" style='display:none'>
+      <div class="template_header">
+        <h2>{{ 'customer.recover_password.title' | t }}</h2>
+        <p class="note">{{ 'customer.recover_password.subtext' | t }}</p>
+      </div>
+
+      {% form 'recover_customer_password' %}
+
+      {{ form.errors | default_errors }}
+
+      <div id="recover_email" class="clearfix large_form">
+        <label for="email" class="large">{{ 'customer.recover_password.email' | t }}</label>
+        <input type="email" value="" size="30" name="email" id="recover-email" class="large" />
+      </div>
+
+      <div class="action_bottom">
+        <input class="secondary button" type="submit" value="{{ 'customer.recover_password.submit' | t }}" />
+        <span class="note"><a href="#" onclick="hideRecoverPasswordForm();return false;">{{ 'customer.recover_password.cancel' | t }}</a></span>
+      </div>
+
+      {% endform %}
+    </div>
+  </div>
+
+
+    <!-- End Left Side -->  
+
+
+    <!-- End Password Recovery -->    
+
+</div>
+
+<script type="text/javascript">
+  function showRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'inline-block';
+    document.getElementById('customer').style.display='none';
+  }
+
+  function hideRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'none';
+    document.getElementById('customer').style.display = 'inline-block';
+  }
+
+  if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+</script>
+
+
+
+

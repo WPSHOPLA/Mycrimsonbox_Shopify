@@ -1,0 +1,67 @@
+<div id="homepage">
+  <!-- Start Flexslider Option -->
+  {% if settings.slideshow == 'flexslider' %}
+  {% include 'flexslider' %}
+  <!-- End Flexslider option - Start Backstretch option -->
+  {% elsif settings.slideshow == 'backstretch' %}
+  {% include 'backstretch' %}
+  {% else %} 
+  <!-- End Backstretch option -->
+  {% endif %}
+  <div class="clear"></div>
+  {% include 'howitworks' %}
+  
+  {% if settings.home_section_1 != blank %}
+  {% include settings.home_section_1 %}
+  {% endif %}
+  {% if settings.home_section_2 != blank %}
+  {% include settings.home_section_2 %}
+  {% endif %}
+  {% include 'joining-club' %}
+  {% if settings.home_section_3 != blank %}
+  {% include settings.home_section_3 %}
+  {% endif %}
+  {% if settings.home_section_4 != blank %}
+  {% include settings.home_section_4 %}
+  {% endif %}
+  
+  
+  <section id="homepage-joinclub" class="joinclub">
+    <div class="row">
+      <h3 style="text-align: center;">Your&nbsp;<span style="color: #881d1d;">Crimson</span> Box Awaits...</h3>
+      <div class="section-content">
+        <div class="ow-button-base ow-button-align-center">
+		<a href="https://mcb-com.myshopify.com/pages/get-started" class="ow-button-hover">
+		<span>Join the Club</span>
+		</a>
+		</div>
+      </div>
+    </div>
+  </section>
+  
+  {% if settings.home_section_5 != blank %}
+  {% include settings.home_section_5 %}
+  {% endif %}
+  {% if settings.home_section_6 != blank %}
+  {% include settings.home_section_6 %}
+  {% endif %}
+  {% if settings.home_section_7 != blank %}
+  {% include settings.home_section_7 %}
+  {% endif %}
+  {% if settings.home_section_8 != blank %}
+  {% include settings.home_section_8 %}
+  {% endif %}
+  {% if settings.home_section_9 != blank %}
+  {% include settings.home_section_9 %}
+  {% endif %}  
+  {% if settings.home_section_10 != blank %}
+  {% include settings.home_section_10 %}
+  {% endif %}  
+  {% if settings.home_section_11 != blank %}
+  {% include settings.home_section_11 %}
+  {% endif %}   
+</div>
+
+  <div class="load-wait">
+    <i class="icon-spinner icon-spin icon-large"></i>
+  </div>  

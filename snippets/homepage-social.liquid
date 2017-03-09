@@ -1,0 +1,22 @@
+<section id="homepage-social" class="no-fouc">    
+  <article class="row"> 
+    <div class="social-content desktop-6 desktop-push-3 tablet-4 tablet-push-1 mobile-3">
+        <h4>{{ 'layout.homepage.social' | t }}</h4>
+        <ul id="social-icons">
+          {% if settings.show_facebook %}<li><a href="{{ settings.facebook_url }}" target="_blank"><i class="icon-facebook icon-2x"></i></a></li>{% endif %}
+          {% if settings.show_twitter %}<li><a href="{{ settings.twittername }}" target="_blank"><i class="icon-twitter icon-2x"></i></a></li>{% endif %}
+          {% if settings.show_pinterest %}<li><a href="{{ settings.pinterest_url }}" target="_blank"><i class="icon-pinterest icon-2x"></i></a></li>{% endif %}
+          {% if settings.show_tumblr %}<li><a href="{{ settings.tumblr_url }}" target="_blank"><i class="icon-tumblr icon-2x"></i></a></li>{% endif %}
+          {% if settings.show_youtube %}<li><a href="{{ settings.youtube_url }}" target="_blank"><i class="icon-youtube icon-2x"></i></a></li>{% endif %}
+          {% if settings.show_googleplus %}<li><a href="{{ settings.googleplus_url }}" target="_blank"><i class="icon-google-plus icon-2x"></i></a></li>{% endif %}
+          {% if settings.show_instagram %}<li><a href="//instagram.com/{{ settings.instagram-id }}" target="_blank"><i class="icon-instagram icon-2x"></i></a></li>{% endif %}
+          {% if settings.show_rss %}<li><a href="{{ shop.url }}/blogs/news.atom" target="_blank"><i class="icon-rss icon-2x"></i></a></li>{% endif %}
+        </ul>  
+        <form action="{{ settings.mailchimp }}" method="post" id="footer-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+          <input value="" name="EMAIL" class="email" id="social-EMAIL" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" required="" type="email">
+          <input value="{{ 'general.newsletter_form.submit' | t }}" name="subscribe" id="social-subscribe" class="button" type="submit">
+        </form>        
+    </div>
+  </article>
+</section>
+<div class="clear"></div>

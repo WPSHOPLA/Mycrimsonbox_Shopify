@@ -1,0 +1,123 @@
+{%  include 'subscription-cart-footer' %} 
+ <div class="section-title desktop-12 mobile-3 login-bg">
+  <h1>{{ 'cart.general.title' | t }}</h1>
+</div>
+
+<div class="clear"></div>
+
+<div id="shopping-cart" class="desktop-12 tablet-6 mobile-3">
+  
+  {% if cart.item_count == 0 %}
+  <label class="subtext">{{ 'cart.general.empty' | t }}</label>
+    
+  {% include 'collection-listing' %}
+  
+  <div class="clear"></div>
+
+  
+  {% else %}
+  <script type="text/javascript">
+    function remove_item(id) {
+      document.getElementById('updates_'+id).value = 0;
+      document.getElementById('cartform').submit();
+    }
+  </script>
+  <form action="/cart" method="post" id="cartform">
+    
+    <table id="shop-cart" class="desktop-9 tablet-6 mobile-3">
+      <thead>
+        <tr>
+          <th>{{ 'cart.general.product' | t }}</th>
+          <th>{{ 'cart.general.price' | t }}</th>
+          <th style="text-align: center;">{{ 'cart.general.qty' | t }}</th>
+          <th style="text-align: center;">{{ 'cart.general.remove' | t }}</th>
+          <th>{{ 'cart.general.total' | t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart.items %}
+        <tr>
+          <td>
+            <div class="cart-item">
+              <div class="cart-image">
+                <a href="{{ item.url }}" title="{{ item.product.title | escape }}">
+                  <img src="{{ item.image | product_img_url: 'compact' }}"  alt="{{ item.product.featured_image.alt | escape }}" />
+                </a>
+              </div>
+              <div class="cart-title">
+                {% if settings.vendor %}<p>{{ item.vendor }}</p>{% endif %}
+                <p>{{ item.title }}</p>
+                {% assign property_size = item.properties | size %}
+                {% if property_size > 0 %}
+                {% for p in item.properties %}
+                {% unless p.last == blank or p.first == "subscription_id" or p.first == "shipping_interval_frequency" or p.first == "shipping_interval_unit_type" %}
+                {{ p.first }}:
+
+                {% comment %}
+                Check if there was an uploaded file associated
+                {% endcomment %}
+                {% if p.last contains '/uploads/' %}
+                <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                {% else %}
+                {{ p.last }}
+                {% endif %}
+
+                <br>
+                {% endunless %}
+                {% endfor %}
+                {% endif %}                
+                
+              </div>
+            </div>
+          </td>
+          <td>
+            <p>{{ item.price | money }}{% if item.variant.compare_at_price > item.price %}<br /><del>{{ item.variant.compare_at_price | money }}</del>{% endif %}</p>          
+          </td>
+          <td>
+            <input type="text" class="cart-qty" size="4" name="updates[{{ item.id }}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onfocus="this.select();" style="max-width: 50px; text-indent: 0; text-align: center; margin: 0 auto 10px; "/>    
+          </td>
+          <td style="text-align: center">
+            <p><a href="#" onclick="remove_item({{ item.variant.id }}); return false;"><i class="icon-trash icon-2x"></i></a></p>
+          </td>
+          <td>
+            <p>{{ item.line_price | money }}</p>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+    
+    <div id="basket-right" class="desktop-3 tablet-6 mobile-3">
+      <h4>{{ 'cart.general.subtotal' | t }} {{ cart.total_price | money }}</h4>
+
+      <p><a href="/collections">{{ 'cart.general.continue' | t }}</a></p>
+      <input type="submit" name="update" id="update-cart" value="{{ 'cart.general.update' | t }}" class="button" />
+<!--       <input type="submit" name="checkout" id="checkout" value="{{ 'cart.general.checkout' | t }}" class="button" /> -->
+      <a href="javascript:;" class="button cartpage-checkout">Checkout</a>
+      
+      <div class="clear"></div>
+      {% if additional_checkout_buttons %}
+ <span class="additional-checkout-buttons"> 
+ {{ content_for_additional_checkout_buttons }} 
+ </span> 
+{% endif %}
+    </div>
+        
+    {% if settings.cart_notes_enable %}
+    <div id="cart-notes" class="desktop-12 mobile-3">
+      <label for="note"><strong>{{ 'cart.general.note' | t }}</strong></label>
+      <textarea name="note" id="note" rows="5" cols="60">{{cart.note}}</textarea>  
+    </div> 
+    {% endif %}
+
+    
+  </form>
+  {% endif %}
+  
+  <div id="looked-at" class="desktop-12 mobile-half">
+    {% include 'recently-viewed' %}
+  </div>
+  
+</div>
+

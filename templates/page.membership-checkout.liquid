@@ -1,0 +1,509 @@
+
+
+<div class="section-title desktop-12 mobile-3 login-bg">
+   <h1>{{ page.title }}</h1>
+</div>
+<div class="{% if settings.pagelist == '' %}desktop-12 tablet-6 mobile-3{% else %}desktop-9 tablet-4 mobile-3{% endif %}" style="margin-top: 120px;">
+   <form id="pmpro_form" class="pmpro_form" method="post" action="" style="margin-top: 50px;">
+      <h4>Membership Level</h4>
+      <p>You have selected the <strong>MyCrimsonBox Monthly Subscription </strong> membership level.</p>
+      <h4>Pricing</h4>
+      <p>The price for membership is <strong>$50.00 per Month.&nbsp;</strong>Cancel anytime (even after your first box).</p>
+      <h4>Shipping</h4>
+      <p><strong>Continental US (48 states) &ndash; Free Shipping </strong></p>
+      <p>*Currently no international shipping available. You will be notified via email when order ships. Allow <strong>6 to 12 days</strong> for box to arrive following payment submission.</p>
+      <p>Please note: All shipping windows are estimates and delivery dates cannot be guaranteed.</p>
+      <p class="pmpro_small" id="other_discount_code_p">Do you have a discount code? <a href="javascript:void(0);" id="other_discount_code_a">Click here to enter your discount code</a>.</p>
+      <div class="discount-code"><label for="other_discount_code">Discount Code</label>
+         <input type="text" value="" size="20" class="input " name="other_discount_code" id="other_discount_code">
+         <input type="button" value="Apply" id="other_discount_code_button" name="other_discount_code_button">
+      </div>
+      <h4>Account Information</h4>
+      <div>
+         <label for="username">Username</label>
+         <input type="text" value="" size="30" class="input pmpro_required" name="username" id="username"><span class="pmpro_asterisk"> <abbr title="Required Field">*</abbr></span>
+      </div>
+      <div>
+         <label for="password">Password</label>
+         <input type="password" value="" size="30" class="input pmpro_required" name="password" id="password"><span class="pmpro_asterisk"> <abbr title="Required Field">*</abbr></span>
+      </div>
+      <div>
+         <label for="password2">Confirm Password</label>
+         <input type="password" value="" size="30" class="input pmpro_required" name="password2" id="password2"><span class="pmpro_asterisk"> <abbr title="Required Field">*</abbr></span>
+      </div>
+      <div>
+         <label for="bemail">E-mail Address</label>
+         <input type="email" value="" size="30" class="input pmpro_required" name="bemail" id="bemail"><span class="pmpro_asterisk"> <abbr title="Required Field">*</abbr></span>
+      </div>
+      <div>
+         <label for="bconfirmemail">Confirm E-mail Address</label>
+         <input type="email" value="" size="30" class="input pmpro_required" name="bconfirmemail" id="bconfirmemail"><span class="pmpro_asterisk"> <abbr title="Required Field">*</abbr></span>
+      </div>
+      <div class="pmpro_hidden">
+         <label for="fullname">Full Name</label>
+         <input type="text" value="" size="30" class="input " name="fullname" id="fullname"> <strong>LEAVE THIS BLANK</strong>
+      </div>
+      <div class="pmpro_captcha">
+      </div>
+      <h4>Shipping Address</h4>
+      <div id="shipping-fields">
+         <div>
+            <label for="sfirstname">First Name</label>
+            <input type="text" value="" size="20" class="input " name="sfirstname" id="sfirstname">
+            <span class="pmpro_asterisk"> *</span>			
+         </div>
+         <div>
+            <label for="slastname">Last Name</label>
+            <input type="text" value="" size="20" class="input " name="slastname" id="slastname"> 
+            <span class="pmpro_asterisk"> *</span>			
+         </div>
+         <div>
+            <label for="saddress1">Address 1</label>
+            <input type="text" value="" size="20" class="input " name="saddress1" id="saddress1">
+            <span class="pmpro_asterisk"> *</span>			
+         </div>
+         <div>
+            <label for="saddress2">Address 2</label>
+            <input type="text" value="" size="20" class="input " name="saddress2" id="saddress2"> 
+         </div>
+         <div>
+            <label for="scity">City</label>
+            <input type="text" value="" size="30" class="input " name="scity" id="scity"> 
+            <span class="pmpro_asterisk"> *</span>			
+         </div>
+         <div>
+            <label for="sstate">State</label>																
+            <input type="text" value="" size="30" class="input " name="sstate" id="sstate"> 					
+            <span class="pmpro_asterisk"> *</span>			
+         </div>
+         <div>
+            <label for="szipcode">Postal Code</label>
+            <input type="text" value="" size="30" class="input " name="szipcode" id="szipcode">
+            <span class="pmpro_asterisk"> *</span>			
+         </div>
+         <div>
+            <label for="scountry">Country</label>
+            <select class="" name="scountry">
+               <option value="AF">Afghanistan</option>
+               <option value="AX">Aland Islands</option>
+               <option value="AL">Albania</option>
+               <option value="DZ">Algeria</option>
+               <option value="AS">American Samoa</option>
+               <option value="AD">Andorra</option>
+               <option value="AO">Angola</option>
+               <option value="AI">Anguilla</option>
+               <option value="AQ">Antarctica</option>
+               <option value="AG">Antigua and Barbuda</option>
+               <option value="AR">Argentina</option>
+               <option value="AM">Armenia</option>
+               <option value="AW">Aruba</option>
+               <option value="AU">Australia</option>
+               <option value="AT">Austria</option>
+               <option value="AZ">Azerbaijan</option>
+               <option value="BS">Bahamas</option>
+               <option value="BH">Bahrain</option>
+               <option value="BD">Bangladesh</option>
+               <option value="BB">Barbados</option>
+               <option value="BY">Belarus</option>
+               <option value="BE">Belgium</option>
+               <option value="BZ">Belize</option>
+               <option value="BJ">Benin</option>
+               <option value="BM">Bermuda</option>
+               <option value="BT">Bhutan</option>
+               <option value="BO">Bolivia</option>
+               <option value="BA">Bosnia and Herzegovina</option>
+               <option value="BW">Botswana</option>
+               <option value="BV">Bouvet Island</option>
+               <option value="BR">Brazil</option>
+               <option value="IO">British Indian Ocean Territory</option>
+               <option value="VG">British Virgin Islands</option>
+               <option value="BN">Brunei</option>
+               <option value="BG">Bulgaria</option>
+               <option value="BF">Burkina Faso</option>
+               <option value="BI">Burundi</option>
+               <option value="KH">Cambodia</option>
+               <option value="CM">Cameroon</option>
+               <option value="CA">Canada</option>
+               <option value="CV">Cape Verde</option>
+               <option value="KY">Cayman Islands</option>
+               <option value="CF">Central African Republic</option>
+               <option value="TD">Chad</option>
+               <option value="CL">Chile</option>
+               <option value="CN">China</option>
+               <option value="CX">Christmas Island</option>
+               <option value="CC">Cocos (Keeling) Islands</option>
+               <option value="CO">Colombia</option>
+               <option value="KM">Comoros</option>
+               <option value="CG">Congo (Brazzaville)</option>
+               <option value="CD">Congo (Kinshasa)</option>
+               <option value="CK">Cook Islands</option>
+               <option value="CR">Costa Rica</option>
+               <option value="HR">Croatia</option>
+               <option value="CU">Cuba</option>
+               <option value="CY">Cyprus</option>
+               <option value="CZ">Czech Republic</option>
+               <option value="DK">Denmark</option>
+               <option value="DJ">Djibouti</option>
+               <option value="DM">Dominica</option>
+               <option value="DO">Dominican Republic</option>
+               <option value="EC">Ecuador</option>
+               <option value="EG">Egypt</option>
+               <option value="SV">El Salvador</option>
+               <option value="GQ">Equatorial Guinea</option>
+               <option value="ER">Eritrea</option>
+               <option value="EE">Estonia</option>
+               <option value="ET">Ethiopia</option>
+               <option value="FK">Falkland Islands</option>
+               <option value="FO">Faroe Islands</option>
+               <option value="FJ">Fiji</option>
+               <option value="FI">Finland</option>
+               <option value="FR">France</option>
+               <option value="GF">French Guiana</option>
+               <option value="PF">French Polynesia</option>
+               <option value="TF">French Southern Territories</option>
+               <option value="GA">Gabon</option>
+               <option value="GM">Gambia</option>
+               <option value="GE">Georgia</option>
+               <option value="DE">Germany</option>
+               <option value="GH">Ghana</option>
+               <option value="GI">Gibraltar</option>
+               <option value="GR">Greece</option>
+               <option value="GL">Greenland</option>
+               <option value="GD">Grenada</option>
+               <option value="GP">Guadeloupe</option>
+               <option value="GU">Guam</option>
+               <option value="GT">Guatemala</option>
+               <option value="GG">Guernsey</option>
+               <option value="GN">Guinea</option>
+               <option value="GW">Guinea-Bissau</option>
+               <option value="GY">Guyana</option>
+               <option value="HT">Haiti</option>
+               <option value="HM">Heard Island and McDonald Islands</option>
+               <option value="HN">Honduras</option>
+               <option value="HK">Hong Kong S.A.R., China</option>
+               <option value="HU">Hungary</option>
+               <option value="IS">Iceland</option>
+               <option value="IN">India</option>
+               <option value="ID">Indonesia</option>
+               <option value="IR">Iran</option>
+               <option value="IQ">Iraq</option>
+               <option value="IE">Ireland</option>
+               <option value="IM">Isle of Man</option>
+               <option value="IL">Israel</option>
+               <option value="IT">Italy</option>
+               <option value="CI">Ivory Coast</option>
+               <option value="JM">Jamaica</option>
+               <option value="JP">Japan</option>
+               <option value="JE">Jersey</option>
+               <option value="JO">Jordan</option>
+               <option value="KZ">Kazakhstan</option>
+               <option value="KE">Kenya</option>
+               <option value="KI">Kiribati</option>
+               <option value="KW">Kuwait</option>
+               <option value="KG">Kyrgyzstan</option>
+               <option value="LA">Laos</option>
+               <option value="LV">Latvia</option>
+               <option value="LB">Lebanon</option>
+               <option value="LS">Lesotho</option>
+               <option value="LR">Liberia</option>
+               <option value="LY">Libya</option>
+               <option value="LI">Liechtenstein</option>
+               <option value="LT">Lithuania</option>
+               <option value="LU">Luxembourg</option>
+               <option value="MO">Macao S.A.R., China</option>
+               <option value="MK">Macedonia</option>
+               <option value="MG">Madagascar</option>
+               <option value="MW">Malawi</option>
+               <option value="MY">Malaysia</option>
+               <option value="MV">Maldives</option>
+               <option value="ML">Mali</option>
+               <option value="MT">Malta</option>
+               <option value="MH">Marshall Islands</option>
+               <option value="MQ">Martinique</option>
+               <option value="MR">Mauritania</option>
+               <option value="MU">Mauritius</option>
+               <option value="YT">Mayotte</option>
+               <option value="MX">Mexico</option>
+               <option value="FM">Micronesia</option>
+               <option value="MD">Moldova</option>
+               <option value="MC">Monaco</option>
+               <option value="MN">Mongolia</option>
+               <option value="ME">Montenegro</option>
+               <option value="MS">Montserrat</option>
+               <option value="MA">Morocco</option>
+               <option value="MZ">Mozambique</option>
+               <option value="MM">Myanmar</option>
+               <option value="NA">Namibia</option>
+               <option value="NR">Nauru</option>
+               <option value="NP">Nepal</option>
+               <option value="NL">Netherlands</option>
+               <option value="AN">Netherlands Antilles</option>
+               <option value="NC">New Caledonia</option>
+               <option value="NZ">New Zealand</option>
+               <option value="NI">Nicaragua</option>
+               <option value="NE">Niger</option>
+               <option value="NG">Nigeria</option>
+               <option value="NU">Niue</option>
+               <option value="NF">Norfolk Island</option>
+               <option value="KP">North Korea</option>
+               <option value="MP">Northern Mariana Islands</option>
+               <option value="NO">Norway</option>
+               <option value="OM">Oman</option>
+               <option value="PK">Pakistan</option>
+               <option value="PW">Palau</option>
+               <option value="PS">Palestinian Territory</option>
+               <option value="PA">Panama</option>
+               <option value="PG">Papua New Guinea</option>
+               <option value="PY">Paraguay</option>
+               <option value="PE">Peru</option>
+               <option value="PH">Philippines</option>
+               <option value="PN">Pitcairn</option>
+               <option value="PL">Poland</option>
+               <option value="PT">Portugal</option>
+               <option value="PR">Puerto Rico</option>
+               <option value="QA">Qatar</option>
+               <option value="RE">Reunion</option>
+               <option value="RO">Romania</option>
+               <option value="RU">Russia</option>
+               <option value="RW">Rwanda</option>
+               <option value="BL">Saint Barthelemy</option>
+               <option value="SH">Saint Helena</option>
+               <option value="KN">Saint Kitts and Nevis</option>
+               <option value="LC">Saint Lucia</option>
+               <option value="MF">Saint Martin (French part)</option>
+               <option value="PM">Saint Pierre and Miquelon</option>
+               <option value="VC">Saint Vincent and the Grenadines</option>
+               <option value="WS">Samoa</option>
+               <option value="SM">San Marino</option>
+               <option value="ST">Sao Tome and Principe</option>
+               <option value="SA">Saudi Arabia</option>
+               <option value="SN">Senegal</option>
+               <option value="RS">Serbia</option>
+               <option value="SC">Seychelles</option>
+               <option value="SL">Sierra Leone</option>
+               <option value="SG">Singapore</option>
+               <option value="SK">Slovakia</option>
+               <option value="SI">Slovenia</option>
+               <option value="SB">Solomon Islands</option>
+               <option value="SO">Somalia</option>
+               <option value="ZA">South Africa</option>
+               <option value="GS">South Georgia and the South Sandwich Islands</option>
+               <option value="KR">South Korea</option>
+               <option value="ES">Spain</option>
+               <option value="LK">Sri Lanka</option>
+               <option value="SD">Sudan</option>
+               <option value="SR">Suriname</option>
+               <option value="SJ">Svalbard and Jan Mayen</option>
+               <option value="SZ">Swaziland</option>
+               <option value="SE">Sweden</option>
+               <option value="CH">Switzerland</option>
+               <option value="SY">Syria</option>
+               <option value="TW">Taiwan</option>
+               <option value="TJ">Tajikistan</option>
+               <option value="TZ">Tanzania</option>
+               <option value="TH">Thailand</option>
+               <option value="TL">Timor-Leste</option>
+               <option value="TG">Togo</option>
+               <option value="TK">Tokelau</option>
+               <option value="TO">Tonga</option>
+               <option value="TT">Trinidad and Tobago</option>
+               <option value="TN">Tunisia</option>
+               <option value="TR">Turkey</option>
+               <option value="TM">Turkmenistan</option>
+               <option value="TC">Turks and Caicos Islands</option>
+               <option value="TV">Tuvalu</option>
+               <option value="VI">U.S. Virgin Islands</option>
+               <option value="USAF">US Armed Forces</option>
+               <option value="UG">Uganda</option>
+               <option value="UA">Ukraine</option>
+               <option value="AE">United Arab Emirates</option>
+               <option value="GB">United Kingdom</option>
+               <option selected="selected" value="US">United States</option>
+               <option value="UM">United States Minor Outlying Islands</option>
+               <option value="UY">Uruguay</option>
+               <option value="UZ">Uzbekistan</option>
+               <option value="VU">Vanuatu</option>
+               <option value="VA">Vatican</option>
+               <option value="VE">Venezuela</option>
+               <option value="VN">Vietnam</option>
+               <option value="WF">Wallis and Futuna</option>
+               <option value="EH">Western Sahara</option>
+               <option value="YE">Yemen</option>
+               <option value="ZM">Zambia</option>
+               <option value="ZW">Zimbabwe</option>
+            </select>
+            <span class="pmpro_asterisk"> *</span>			
+         </div>
+      </div>
+      <h4>Payment Information</h4>
+      <div class="pmpro_sslseal">
+         <a target="GEOTRUST_SSL_Splash" href="https://sealsplash.geotrust.com/splash?&dn=www.mycrimsonbox.com"><img align="right" src="https://cdn.shopify.com/s/files/1/1498/2742/t/5/assets/getgeotrustsslseal.gif?14983464817691392295"></a>
+         <br>
+         <img class="stripelogo" src="https://cdn.shopify.com/s/files/1/1498/2742/files/big_2x.png?15320282022961992001">
+      </div>
+      <div class="pmpro_payment-account-number">
+         <label for="AccountNumber">Card Number</label>
+         <input type="text" autocomplete="off" value="" size="25" class="input pmpro_required" id="AccountNumber"><span class="pmpro_asterisk"> <abbr title="Required Field">*</abbr></span>
+      </div>
+      <div class="pmpro_payment-expiration">
+         <label for="ExpirationMonth">Expiration Date</label>
+         <select class=" pmpro_required" id="ExpirationMonth">
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+         </select>
+         <span class="pmpro_asterisk"> <abbr title="Required Field">*</abbr></span>/
+         <select class=" pmpro_required" id="ExpirationYear">
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+         </select>
+         <span class="pmpro_asterisk"> <abbr title="Required Field">*</abbr></span>
+      </div>
+      <div class="pmpro_payment-cvv">
+         <label for="CVV">CVV</label>
+         <input type="text" value="" size="4" id="CVV" class="input">  <small>(<a onclick="javascript:window.open('https://www.mycrimsonbox.com/wp-content/plugins/paid-memberships-pro/pages/popup-cvv.html','cvv','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=600, height=475');" href="javascript:void(0);">what's this?</a>)</small>
+      </div>
+      <div class="pmpro_payment-discount-code">
+         <label for="discount_code">Discount Code</label>
+         <input type="text" value="" size="20" name="discount_code" id="discount_code" class="input ">
+         <input type="button" value="Apply" name="discount_code_button" id="discount_code_button">
+         <p style="display: none;" class="pmpro_message" id="discount_code_message"></p>
+      </div>
+      <h4>Terms &amp; Conditions</h4>
+      <div id="pmpro_license">
+         <strong>Terms and Conditions</strong> ("Terms")
+         <p>Last updated: June 15, 2016</p>
+         <p>Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the http://mycrimsonbox.com/ website (the "Service") operated by Crimson Box Co. ("us", "we", or "our").<br>
+            Your access to and use of the Service is conditioned upon your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who wish to access or use the Service.<br>
+            By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you do not have permission to access the Service.
+         </p>
+         <p><strong>Purchases</strong><br>
+            If you wish to purchase any product or service made available through the Service ("Purchase"), you may be asked to supply certain information relevant to your Purchase including, without limitation, your credit card number, the expiration date of your credit card, your billing address, and your shipping information.<br>
+            You represent and warrant that: (i) you have the legal right to use any credit card(s) or other payment method(s) in connection with any Purchase; and that (ii) the information you supply to us is true, correct and complete.<br>
+            The service may employ the use of third party services for the purpose of facilitating payment and the completion of Purchases. By submitting your information, you grant us the right to provide the information to these third parties subject to our Privacy Policy.<br>
+            We reserve the right to refuse or cancel your order at any time for reasons including but not limited to: product or service availability, errors in the description or price of the product or service, error in your order or other reasons.<br>
+            We reserve the right to refuse or cancel your order if fraud or an unauthorized or illegal transaction is suspected.
+         </p>
+         <p><strong>Accounts</strong><br>
+            When you create an account with us, you guarantee that the information you provide us is accurate, complete, and current at all times. Inaccurate, incomplete, or obsolete information may result in the immediate termination of your account on the Service.<br>
+            You are responsible for maintaining the confidentiality of your account and password, including but not limited to the restriction of access to your computer and/or account. You agree to accept responsibility for any and all activities or actions that occur under your account and/or password, whether your password is with our Service or a third-party service. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.<br>
+            You may not use as a username the name of another person or entity or that is not lawfully available for use, a name or trademark that is subject to any rights of another person or entity other than you, without appropriate authorization. You may not use as a username any name that is offensive, vulgar or obscene.<br>
+            We reserve the right to refuse service, terminate accounts, remove or edit content, or cancel orders in our sole discretion.
+         </p>
+         <p><b>Shipping:</b></p>
+         <p>We provide free standard shipping to all of our monthly members. Currently we only ship to the continental US (contiguous 48 states). &nbsp;We do not offer Expedited or International shipping at this time, this is a service we hope to provide in the near future. Boxes are shipped within 1-2 days of payment.</p>
+         <p><b>Please allow 6-12 days for your box to arrive</b>. Shipping speed will vary depending on your location. My Crimson Box reserves the right to select the carrier for each individual shipment. &nbsp;We will notify you once your box is shipped, and likewise once your box is received by us in the event of an exchange or refund. &nbsp;Should your box be shipped back to us due to an incorrect address or refusal, you may be subject to a $10 shipping fee.</p>
+         <p><b>Exchanges &amp; Refunds</b></p>
+         <p>Our policy lasts 15 days. If 15 days have gone by since you’ve received your package, unfortunately we can’t offer you a refund or exchange.</p>
+         <p><b>Exchanges</b>:</p>
+         <p>Should an item in your box not fit correctly, we will happily exchange it for the correct size. Only <b>one (1) single</b> item from the current month’s box can be exchanged for a different size. If we no longer have the item in the size you desire, we will exchange it for a comparable item at our discretion. <b>You are only eligible for an exchange if you are a current member/subscriber to our monthly service. If you have canceled your membership since your last order, you are ineligible for an exchange.</b> All returned items must be in the condition they were received. Items sent back with odors, stains, tears, or visible signs of wear will not be accepted.</p>
+         <p>Shipping fees for exchanges are complimentary. We will only pay for shipping exchange fees associated with the same address the box was delivered to.</p>
+         <p>To request an exchange:</p>
+         <ul>
+            <li>Please send us a message through our ‘Contact’ page, or message us at<a href="mailto:support@mycrimsonbox.com">support@mycrimsonbox.com</a>.</li>
+            <li>We will then provide you with a prepaid shipping label. Attach the shipping label outside of the original package, making sure to remove or cover any old labels.</li>
+            <li>Damaged items will not be exchanged and additionally be returned to the sender at a cost of $10 to the card on file.</li>
+         </ul>
+         <p><b>Refunds</b>:</p>
+         <p>All refunds must be requested within 15 days of package receipt. <b>Refunds are only for the entirety of the latest order (box). No partial orders or box items will be refunded</b>.</p>
+         <p>Shipping fees for your refunded items (box) will be complimentary only for the original address associated with the order.</p>
+         <p>In order for us to provide a refund:</p>
+         <p>&nbsp;</p>
+         <ul>
+            <li><b><b>Your current membership/subscription must be revoked.</b></b></li>
+         </ul>
+         <ul>
+            <li>All returned items must be in the condition they were received. Items sent back with odors, stains, tears, or visible signs of wear will not be accepted.</li>
+            <li>Send us a message through our ‘Contact’ page, or message us at <a href="mailto:support@mycrimsonbox.com">support@mycrimsonbox.com</a>.</li>
+            <li>We will then provide you with a prepaid shipping label. Attach the shipping label outside of the original package, making sure to remove or cover any old labels.</li>
+            <li>We will redeposit funds within 4-7 days of package receipt. There may be an additional delay in the availability of your funds depending on your card company.</li>
+            <li>Damaged items will not be exchanged and additionally be returned to the sender at a cost of $10 to the card on file.</li>
+         </ul>
+         <p>&nbsp;</p>
+         <p><b>Late or missing refunds (if applicable)</b></p>
+         <p>If you haven’t received a refund yet, first check your bank account again.</p>
+         <p>Then contact your credit card company, it may take some time before your refund is officially posted.</p>
+         <p>Next contact your bank. There is often some processing time before a refund is posted.</p>
+         <p>If you’ve done all of this and you still have not received your refund yet, please contact us at support@mycrimsonbox.com.</p>
+         <p>&nbsp;</p>
+         <p><b>Sale items (if applicable)</b></p>
+         <p>Only regular priced items may be refunded, unfortunately sale items cannot be refunded</p>
+         <p><strong>Links To Other Web Sites</strong><br />
+            Our Service may contain links to third party web sites or services that are not owned or controlled by Crimson Box Co..<br />
+            Crimson Box Co. has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.<br />
+            You acknowledge and agree that Crimson Box Co. shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such third party web sites or services.<br />
+            We strongly advise you to read the terms and conditions and privacy policies of any third party web sites or services that you visit.
+         </p>
+         <p><strong>Termination</strong><br />
+            We may terminate or suspend your account and bar access to the Service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of the Terms.<br />
+            If you wish to terminate your account, you may simply discontinue using the Service.<br />
+            All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.
+         </p>
+         <p><strong>Indemnification</strong><br />
+            You agree to defend, indemnify and hold harmless Crimson Box Co. and its licensee and licensors, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the Service, by you or any person using your account and password, or b) a breach of these Terms.
+         </p>
+         <p><strong>Limitation Of Liability</strong><br />
+            In no event shall Crimson Box Co., nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence) or any other legal theory, whether or not we have been informed of the possibility of such damage, and even if a remedy set forth herein is found to have failed of its essential purpose.
+         </p>
+         <p><strong>Disclaimer</strong><br />
+            Your use of the Service is at your sole risk. The Service is provided on an "AS IS" and "AS AVAILABLE" basis. The Service is provided without warranties of any kind, whether express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, non-infringement or course of performance.<br />
+            Crimson Box Co. its subsidiaries, affiliates, and its licensors do not warrant that a) the Service will function uninterrupted, secure or available at any particular time or location; b) any errors or defects will be corrected; c) the Service is free of viruses or other harmful components; or d) the results of using the Service will meet your requirements.
+         </p>
+         <p><strong>Exclusions</strong><br />
+            Some jurisdictions do not allow the exclusion of certain warranties or the exclusion or limitation of liability for consequential or incidental damages, so the limitations above may not apply to you.
+         </p>
+         <p><strong>Governing Law</strong><br />
+            These Terms shall be governed and construed in accordance with the laws of Washington, United States, without regard to its conflict of law provisions.<br />
+            Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Service, and supersede and replace any prior agreements we might have had between us regarding the Service.<br />
+            Changes<br />
+            We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material we will provide at least 30 days notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.<br />
+            By continuing to access or use our Service after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use the Service.
+         </p>
+         <p><strong>Contact Us</strong><br />
+            If you have any questions about these Terms, please contact us at support@mycrimsonbox.com.
+         </p>
+      </div>
+      <input type="checkbox" id="tos" value="1" name="tos">
+      <label for="tos" class="pmpro_normal pmpro_clickable">I agree to the Terms &amp; Conditions</label>
+      <div class="pmpro_submit">
+         <span id="pmpro_submit_span">
+         <input type="hidden" value="1" name="submit-checkout"><input type="hidden" value="1" name="javascriptok">
+         <input type="submit" value="Submit and Check Out »" class="pmpro_btn pmpro_btn-submit-checkout">
+         </span>
+         <span style="visibility: hidden;" id="pmpro_processing_message">
+         Processing...		</span>
+      </div>
+   </form>
+</div>
+{% if settings.pagelist != '' %}
+<div id="page-sidebar" class="desktop-3 tablet-2 mobile-3">
+   <h2>{{ settings.page-sidebar-title }}</h2>
+   <ul>
+      {% for link in linklists[settings.pagelist].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+   </ul>
+   {% if settings.pagelist == '' %}
+   <p>You are seeing this message as you have yet to pick a linklist in the Pages and contact form section of the theme settings</p>
+   <p>In your admin click on Themes > Customize Theme > Pages and Contact form and choose a Linklist from the dropdown in the area marked Choose a linklist for page sidebar</p>
+   {% endif %}  
+</div>
+{% endif %}
+
